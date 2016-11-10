@@ -1,4 +1,4 @@
-import ENV_VARS from '../env-config'
+import ENV_VARS from '../env-vars'
 
 class Logger {
     /**
@@ -8,7 +8,7 @@ class Logger {
      * @param string level
      */
     log = (msg, level='info', ...args) => {
-        if (ENV_VARS.DEBUG == true || process.env.DEBUG == true || process.env.DEBUG == 'true') {
+        if (process.env.DEBUG) {
             this[level](msg, ...args)
         }
     }

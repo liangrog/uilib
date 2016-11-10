@@ -3,7 +3,7 @@ import CognitoIdentityServiceProvider from 'aws-sdk/clients/cognitoidentityservi
 import {CognitoUserPool, CognitoUserAttribute, CognitoUser} from 'amazon-cognito-identity-js'
 
 import logger from '../logger'
-import ENV_VARS from '../env-config'
+import ENV_VARS from '../env-vars'
 
 /**
  * User Pool class
