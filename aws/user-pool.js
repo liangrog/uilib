@@ -2,9 +2,8 @@ import AWS from 'aws-sdk/global'
 import CognitoIdentityServiceProvider from 'aws-sdk/clients/cognitoidentityserviceprovider'
 import {CognitoUserPool, CognitoUserAttribute, CognitoUser} from 'amazon-cognito-identity-js'
 
-import logger from './logger'
-import {COGNITO_USER_POOL_ID, COGNITO_APP_CLIENT_ID, COGNITO_IDENTITY_POOL_ID, COGNITO_REGION,
-        COGNITO_USER_POOL_MANDATORY_ATTR, COGNITO_USER_POOL_STANDARD_ATTR, COGNITO_USER_POOL_CUSTOM_ATTR} from '../config.js' 
+import logger from '../logger'
+import ENV_VARS from '../env-config'
 
 /**
  * User Pool class
@@ -16,7 +15,7 @@ class UserPool {
      * initiating userPool
      */
     constructor() {
-        this.userPool = this.getCognitoUserPool(COGNITO_USER_POOL_ID, COGNITO_APP_CLIENT_ID)
+        this.userPool = this.getCognitoUserPool(ENV_VARS.COGNITO_USER_POOL_ID, ENV_VARS.COGNITO_APP_CLIENT_ID)
     }
 
     /**
@@ -74,7 +73,7 @@ class UserPool {
      * @param array form_data
      */
     validateRegistyForm(formData) {
-        for (let field of COGNITO_USER_POOL_MANDATORY_ATTR) {
+        for (let field of ENV_VARS.COGNITO_USER_POOL_MANDATORY_ATTR) {
             if (!formData[field] || formData[field].length <= 0) {
                 return new Error('Missing mandatory field')
             }
@@ -87,7 +86,7 @@ class UserPool {
      */
     filterRegistryForm(formData) {
         let newFormData = {}
-        let allowAttr = COGNITO_USER_POOL_STANDARD_ATTR.concat(COGNITO_USER_POOL_CUSTOM_ATTR)
+        let allowAttr = ENV_VARS.COGNITO_USER_POOL_STANDARD_ATTR.concat(ENV_VARS.COGNITO_USER_POOL_CUSTOM_ATTR)
         for (let key in formData) {
             if (key != 'username'
                 && key != 'password'
@@ -222,9 +221,9 @@ class UserPool {
             logger.log('access token + ' + result.getAccessToken().getJwtToken())
 
             AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-                IdentityPoolId: COGNITO_IDENTITY_POOL_ID,
+                IdentityPoolId: ENV_VARS.COGNITO_IDENTITY_POOL_ID,
                 Logins: {
-                    ['cognito-idp.' + COGNITO_REGION + '.amazonaws.com/' + COGNITO_USER_POOL_ID]: result.getIdToken().getJwtToken()
+                    ['cognito-idp.' + ENV_VARS.COGNITO_REGION + '.amazonaws.com/' + ENV_VARS.COGNITO_USER_POOL_ID]: result.getIdToken().getJwtToken()
                 }
             })
 
@@ -479,9 +478,9 @@ class UserPool {
 
             this.cognitoUser = cognitoUser
             AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-                IdentityPoolId: COGNITO_IDENTITY_POOL_ID,
+                IdentityPoolId: ENV_VARS.COGNITO_IDENTITY_POOL_ID,
                 Logins : {
-                    ['cognito-idp.' + COGNITO_REGION + '.amazonaws.com/' + COGNITO_USER_POOL_ID]: session.getIdToken().getJwtToken()
+                    ['cognito-idp.' + ENV_VARS.COGNITO_REGION + '.amazonaws.com/' + ENV_VARS.COGNITO_USER_POOL_ID]: session.getIdToken().getJwtToken()
                 }
             })
 
@@ -523,9 +522,9 @@ class UserPool {
                 this.cognitoUser = cognitoUser
                 // Add the User's Id Token to the Cognito credentials login map.
                 AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-                    IdentityPoolId: COGNITO_IDENTITY_POOL_ID,
+                    IdentityPoolId: ENV_VARS.COGNITO_IDENTITY_POOL_ID,
                     Logins: {
-                        ['cognito-idp.' + COGNITO_REGION + '.amazonaws.com/' + COGNITO_USER_POOL_ID]: result.getIdToken().getJwtToken()
+                        ['cognito-idp.' + ENV_VARS.COGNITO_REGION + '.amazonaws.com/' + ENV_VARS.COGNITO_USER_POOL_ID]: result.getIdToken().getJwtToken()
                     }
                 })
             }
