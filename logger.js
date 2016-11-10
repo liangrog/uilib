@@ -1,4 +1,4 @@
-import ENV_VARS from '../env_config'
+import ENV_VARS from '../env-config'
 
 class Logger {
     /**
