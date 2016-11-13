@@ -1,6 +1,8 @@
 import React from 'react'
 import Immutable from 'immutable'
 
+import COUNTRY_CALLING_CODES from '../../data/country-calling-codes'
+
 
 /**
  * default select
@@ -80,3 +82,14 @@ GenderSelect.defaultProps = {
     required: '',
     autoFocus: false
 }
+
+/**
+ * select list for country calling codes
+ */
+ export const CountryCallingCodeSelect = (props) => {
+     let options = COUNTRY_CALLING_CODES.map(code => ({label:code, value:code}))
+
+     let local = Immutable.fromJS(props).set('options', options).toJSON()
+
+     return <Select {...local} />
+ }
