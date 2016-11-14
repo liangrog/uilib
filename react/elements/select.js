@@ -87,7 +87,7 @@ GenderSelect.defaultProps = {
  * select list for country calling codes
  */
  export const CountryCallingCodeSelect = (props) => {
-     let options = COUNTRY_CALLING_CODES
+     let options = COUNTRY_CALLING_CODES.map(code => ({label:code, value:code}))
 
      let local = Immutable.fromJS(props).set('options', options).toJSON()
 
