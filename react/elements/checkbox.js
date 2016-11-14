@@ -4,7 +4,16 @@ import React from 'react'
  * default Checkbox
  */
 export const Checkbox = (props) =>
-    <input className={props.className} onChange={props.onChange} type="checkbox" name={props.name} id={props.id} value={props.value} autoFocus={props.autoFocus} required={props.required} />
+    <input type="checkbox"
+            id={props.id}
+            className={props.className}
+            onChange={props.onChange}
+            name={props.name}
+            value={props.value}
+            checked={props.checked}
+            autoFocus={props.autoFocus}
+            required={props.required}
+            />
 
 Checkbox.propTypes = {
     id: React.PropTypes.string,
@@ -12,6 +21,7 @@ Checkbox.propTypes = {
     onChange: React.PropTypes.func,
     name: React.PropTypes.string.isRequired,
     value: React.PropTypes.string.isRequired,
+    checked: React.PropTypes.bool,
     autoFocus: React.PropTypes.bool,
     required: React.PropTypes.string
 }

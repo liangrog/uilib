@@ -16,6 +16,7 @@ Radio.propTypes = {
     name: React.PropTypes.string.isRequired,
     value: React.PropTypes.string,
     style: React.PropTypes.string,
+    checked: React.PropTypes.bool,
     defaultChecked: React.PropTypes.bool,
     autoFocus: React.PropTypes.bool
 }
