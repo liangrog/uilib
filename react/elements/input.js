@@ -1,6 +1,6 @@
 import React from 'react'
 
-import wrapWithValidation from '../hoc/wrap-with-validation'
+import fieldValidationDecor from '../components/field-validation-decor'
 
 
 /**
@@ -71,4 +71,4 @@ InputBase.defaultProps = {
     required: false
 }
 
-export const Input = wrapWithValidation(InputBase)
+export const Input = fieldValidationDecor(InputBase)

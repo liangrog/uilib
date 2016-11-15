@@ -1,8 +1,9 @@
 import React from 'react'
 import Immutable from 'immutable'
 
-import COUNTRY_CALLING_CODES from '../../data/country-calling-codes'
-import wrapWithValidation from '../hoc/wrap-with-validation'
+import fieldValidationDecor from '../components/field-validation-decor'
+import AUSTRALIA_STATES from '../../data/australia-states'
+import { COUNTRY_AUSTRALIA_ONLY, COUNTRY_DIAL_CODES } from '../../data/countries'
 
 
 /**
@@ -77,7 +78,7 @@ SelectBase.defaultProps = {
     autoFocus: false
 }
 
-export const Select = wrapWithValidation(SelectBase)
+export const Select = fieldValidationDecor(SelectBase)
 
 /**
  * select list for gender
@@ -122,8 +123,8 @@ GenderSelect.defaultProps = {
 /**
  * select list for country calling codes
  */
-export const CountryCallingCodeSelect = (props) => {
-    let options = COUNTRY_CALLING_CODES.map(code => ({label:code, value:code}))
+export const CountryDialCodeSelect = (props) => {
+    let options = COUNTRY_DIAL_CODES.map(code => ({label:code, value:code}))
 
     let local = Immutable.fromJS(props).set('options', options).toJSON()
 
@@ -134,7 +135,7 @@ export const CountryCallingCodeSelect = (props) => {
   * select list for state
   */
 export const StateSelect = (props) => {
-    let options = ["", "ACT", "NSW", "NT", "QLD", "SA", "TAS", "VIC", "WA"].map(code => ({label:code, value:code}))
+    let options = AUSTRALIA_STATES.map(code => ({label:code, value:code}))
 
     let local = Immutable.fromJS(props).set('options', options).toJSON()
 
@@ -145,9 +146,9 @@ export const StateSelect = (props) => {
  * select list for state
  */
 export const CountrySelect = (props) => {
-   let options = ["", "Australia"].map(code => ({label:code, value:code}))
+    let options = COUNTRY_AUSTRALIA_ONLY.map(c => ({label:c, value:c}))
 
-   let local = Immutable.fromJS(props).set('options', options).toJSON()
+    let local = Immutable.fromJS(props).set('options', options).toJSON()
 
-   return <Select {...local} />
+    return <Select {...local} />
 }

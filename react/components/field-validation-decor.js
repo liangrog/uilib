@@ -1,7 +1,7 @@
 import React from 'react'
 
 
-const wrapWithValidation = (Component) => {
+const fieldValidationDecor = (Component) => {
 
     return (props) => {
         let newClassName = props.className ? props.className : ''
@@ -17,7 +17,8 @@ const wrapWithValidation = (Component) => {
     }
 }
 
-export default wrapWithValidation
+export default fieldValidationDecor
+
 
 
 // Validation display, for future reference:
