@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { Input } from './input'
-import { CountryCallingCodeSelect } from './select'
+import { CountryDialCodeSelect } from './select'
 
 
 class Tel extends React.Component {
@@ -35,7 +35,7 @@ class Tel extends React.Component {
         return (
             <div id={this.props.id} className={'clearfix ' + this.props.className}>
                 <div className="l_span_4">
-                    <CountryCallingCodeSelect className=""
+                    <CountryDialCodeSelect className=""
                             name="tel_contry_code"
                             required={this.props.required}
                             options={[{label:'',value:''},{label:'+61',value:'+61'},{label:'+86',value:'+86'}]}
