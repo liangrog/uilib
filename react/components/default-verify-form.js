@@ -14,12 +14,24 @@ const DefaultVerificationForm = (VerificationComponent, context) => (
                 <fieldset>
                     <ul className={context.theme.ul}>
                         <li>
+                            <strong>An email was sent to ****@merlingroup.co</strong><br/>
+                            <p>Look for the verification email in your inbox and click the link in the email. A confirmation message will appear in your web browser.</p>
+                            <strong>Didn't get the email?</strong><br/>
+                            <p>Check your spam folder to make sure it didn't end up there. You can also add the email address no-reply@merlingroup.co to your address book and then try sending the email again.</p>
+                        </li>
+                        <li>
                             <label className={context.theme.required}><em>*</em>Enter a verification code</label>
-                            <span className="codemessage">A text message with a verification code was just sent to •••• ••• •76</span>
                             <input type="text"
                                 onChange={callback.setStateVal}
                                 className={context.theme.inputText}
                                 name="code" required autoFocus />
+                        </li>
+                        <li className={context.theme.clearfix}>
+                            <div className={context.theme.buttonSet}>
+                                <button className={context.theme.btnFull} id="resend" onClick={callback.resend}>
+                                    Resend Verification Email
+                                </button>
+                            </div>
                         </li>
                         <li className={context.theme.clearfix}>
                             <div className={context.theme.buttonSet}>

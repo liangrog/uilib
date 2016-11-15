@@ -32,6 +32,13 @@ class CognitoVerifyForm extends Form {
 
     cancelVerify = () => this.context.router.push('/account/login')
 
+    resend = () => {
+        let onFailure = (err) => {
+            this.setState({message: err.message})
+        }
+        userpool.resendConfirmCode(null, onFailure)
+    }
+
     render() {
         return (
             this.props.children(this)
