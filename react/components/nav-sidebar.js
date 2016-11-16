@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import { Link } from 'react-router'
 
 
 class NavSidebar extends Component {
@@ -12,9 +13,9 @@ class NavSidebar extends Component {
             let className = item.active ? "active" : null
             return (
                 <li>
-                    <a href={item.href} title={item.title} className={className}>
+                    <Link to={item.href} activeClassName="active" onlyActiveOnIndex={true}>
                         {item.title}
-                    </a>
+                    </Link>
                 </li>
             )
         })
