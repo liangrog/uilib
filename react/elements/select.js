@@ -4,6 +4,7 @@ import Immutable from 'immutable'
 import fieldValidationDecor from '../components/field-validation-decor'
 import AUSTRALIA_STATES from '../../data/australia-states'
 import { COUNTRY_AUSTRALIA_ONLY, COUNTRY_DIAL_CODES } from '../../data/countries'
+import { VISA_TYPES, SPONSOR_PERIODS } from '../../data/visas'
 
 
 /**
@@ -147,6 +148,28 @@ export const StateSelect = (props) => {
  */
 export const CountrySelect = (props) => {
     let options = COUNTRY_AUSTRALIA_ONLY.map(c => ({label:c, value:c}))
+
+    let local = Immutable.fromJS(props).set('options', options).toJSON()
+
+    return <Select {...local} />
+}
+
+/**
+ * select list for state
+ */
+export const VisaSelect = (props) => {
+    let options = VISA_TYPES.map(c => ({label:c, value:c}))
+
+    let local = Immutable.fromJS(props).set('options', options).toJSON()
+
+    return <Select {...local} />
+}
+
+/**
+ * select list for state
+ */
+export const SponsorPeriodSelect = (props) => {
+    let options = SPONSOR_PERIODS
 
     let local = Immutable.fromJS(props).set('options', options).toJSON()
 
