@@ -42,7 +42,7 @@ export const RadioGroup = (props) => (
             })
         }
     </ul>
-)   
+)
 
 RadioGroup.propTypes = {
     id: React.PropTypes.string,
@@ -71,7 +71,7 @@ export const GenderRadioGroup = props => {
         {
             label: {children: 'Female', htmlFor: 'gender_female' + index},
             userInput: {name: 'gender' + index, id: 'gender_female' + index, value: 'female', ...props.female}
-        },        
+        },
         {
             label: {children: 'Male', htmlFor: 'gender_male' + index},
             userInput: {name: 'gender' + index, id: 'gender_male' + index, value: 'male', ...props.male}
@@ -85,14 +85,14 @@ GenderRadioGroup.propTypes = {
     id: React.PropTypes.string,
     className: React.PropTypes.string,
     name: React.PropTypes.string.isRequired,
-    male: React.PropTypes.ObjectOf(
+    male: React.PropTypes.objectOf(
         React.PropTypes.shape({
             checked: React.PropTypes.bool,
             onChange: React.PropTypes.func,
             className: React.PropTypes.string
         })
     ),
-    female: React.PropTypes.ObjectOf(
+    female: React.PropTypes.objectOf(
         React.PropTypes.shape({
             checked: React.PropTypes.bool,
             onChange: React.PropTypes.func,
@@ -117,7 +117,7 @@ export const YesnoRadioGroup = props => {
         {
             label: {children: 'Yes', htmlFor: 'yesno_yes' + index},
             userInput: {name: 'yesno' + index, id: 'yesno_yes' + index, value: 'yes', ...props.yes}
-        },        
+        },
         {
             label: {children: 'No', htmlFor: 'yesno_no' + index},
             userInput: {name: 'yesno' + index, id: 'yesno_no' + index, value: 'no', ...props.no}
@@ -131,14 +131,14 @@ YesnoRadioGroup.propTypes = {
     id: React.PropTypes.string,
     className: React.PropTypes.string,
     name: React.PropTypes.string.isRequired,
-    male: React.PropTypes.ObjectOf(
+    male: React.PropTypes.objectOf(
         React.PropTypes.shape({
             checked: React.PropTypes.bool,
             onChange: React.PropTypes.func,
             className: React.PropTypes.string
         })
     ),
-    female: React.PropTypes.ObjectOf(
+    female: React.PropTypes.objectOf(
         React.PropTypes.shape({
             checked: React.PropTypes.bool,
             onChange: React.PropTypes.func,
