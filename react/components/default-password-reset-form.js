@@ -10,16 +10,16 @@ const DefaultPasswordResetForm = (PasswordResetComponent, context) => (
     {
         //callback is the PasswordResetComponent scope this
         (callback) => (
-            <form className={context.theme.passwordResetForm} onSubmit={callback.sendCode}>
+            <form className="" onSubmit={callback.sendCode}>
                 <fieldset>
-                <ul className={context.theme.ul}>
-                    <li className={context.theme.error}>
-                        <label className={context.theme.required}  id="">Email address</label>
-                        <input type="email" className={context.theme.inputText}
+                <ul className="">
+                    <li className="">
+                        <label className=""  id="">Email address</label>
+                        <input type="email" className=""
                             onChange={callback.setStateVal} name="email" id="email" required="" />
-                        <div className={context.theme.error}>Please enter an email address</div>
+                        <div className="">Please enter an email address</div>
                     </li>
-                    <li className={context.theme.success}>
+                    <li className="">
                         <p>If this is a valid account, your email is on its way!</p>
                     </li>
                     <li className="clearfix">
