@@ -9,7 +9,14 @@ class NavSidebar extends Component {
 
     render = () => {
         let items = this.props.items.map(function(item) {
-            return (<li><a href={item.href} title={item.title}>{item.title}</a></li>)
+            let className = item.active ? "active" : null
+            return (
+                <li>
+                    <a href={item.href} title={item.title} className={className}>
+                        {item.title}
+                    </a>
+                </li>
+            )
         })
         let progressComponent = this.props.progress || null
 
