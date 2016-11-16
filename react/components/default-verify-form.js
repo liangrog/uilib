@@ -10,9 +10,9 @@ const DefaultVerificationForm = (VerificationComponent, context) => (
     {
         //callback is the VerificationComponent scope this
         (callback) => (
-            <form className={context.theme.verificationForm} onSubmit={callback.verify}>
+            <form className="" onSubmit={callback.verify}>
                 <fieldset>
-                    <ul className={context.theme.ul}>
+                    <ul className="">
                         <li>
                             <strong>An email was sent to ****@merlingroup.co</strong><br/>
                             <p>Look for the verification email in your inbox and click the link in the email. A confirmation message will appear in your web browser.</p>
@@ -20,30 +20,30 @@ const DefaultVerificationForm = (VerificationComponent, context) => (
                             <p>Check your spam folder to make sure it didn't end up there. You can also add the email address no-reply@merlingroup.co to your address book and then try sending the email again.</p>
                         </li>
                         <li>
-                            <label className={context.theme.required}><em>*</em>Enter a verification code</label>
+                            <label className=""><em>*</em>Enter a verification code</label>
                             <input type="text"
                                 onChange={callback.setStateVal}
-                                className={context.theme.inputText}
+                                className=""
                                 name="code" required autoFocus />
                         </li>
-                        <li className={context.theme.clearfix}>
-                            <div className={context.theme.buttonSet}>
-                                <button className={context.theme.btnFull} id="resend" onClick={callback.resend}>
+                        <li className="">
+                            <div className="">
+                                <button className="" id="resend" onClick={callback.resend}>
                                     Resend Verification Email
                                 </button>
                             </div>
                         </li>
-                        <li className={context.theme.clearfix}>
-                            <div className={context.theme.buttonSet}>
+                        <li className="">
+                            <div className="">
                                 <div>
                                     <button type="button"
-                                        id="cancel" className={context.theme.btnCancel}
+                                        id="cancel" className=""
                                         onClick={callback.cancelVerify}>
                                         Cancel
                                     </button>
                                 </div>
                                 <div>
-                                    <button type="submit" id="verify" className={context.theme.btnFull}>Done</button>
+                                    <button type="submit" id="verify" className="">Done</button>
                                 </div>
                             </div>
                         </li>
