@@ -5,15 +5,17 @@ const fieldValidationDecor = (Component) => {
 
     return (props) => {
         let newClassName = props.className ? props.className : ''
+        let newWrapperClassName = props.wrapperClassName ? props.wrapperClassName : ''
 
         // Field incomplete if required true but value is empty
         if (props.required) {
             if (props.value === undefined || props.value === '' || props.value === null) {
                 newClassName += ' field-incomplete'
+                newWrapperClassName += ' field-incomplete'
             }
         }
 
-        return <Component {...props} className={newClassName} />
+        return <Component {...props} className={newClassName} wrapperClassName={newWrapperClassName} />
     }
 }
 
