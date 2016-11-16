@@ -34,7 +34,7 @@ class NavSidebar extends Component {
 
 NavSidebar.propTypes = {
     items: PropTypes.array,
-    progress: PropTypes.element
+    progress: PropTypes.component
 }
 
 
