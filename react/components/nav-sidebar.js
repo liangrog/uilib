@@ -10,7 +10,6 @@ class NavSidebar extends Component {
 
     render = () => {
         let items = this.props.items.map(function(item) {
-            let className = item.active ? "active" : null
             return (
                 <li>
                     <Link to={item.href} activeClassName="active" onlyActiveOnIndex={true}>
