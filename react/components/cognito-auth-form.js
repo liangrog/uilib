@@ -38,7 +38,10 @@ class CognitoAuthForm extends Form {
 
     render() {
         return (
-            this.props.children(this)
+            <div>
+                { this.state.message ? <div className='alert alert-info'>{this.state.message}</div> : '' }
+                { this.props.children(this) }
+            </div>
         )
     }
 }
