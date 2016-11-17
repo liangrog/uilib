@@ -1,7 +1,7 @@
 import React from 'react'
 
 import Password from './password'
-
+import Telephone from './telephone'
 
 /**
  * default account registration form
@@ -35,7 +35,7 @@ const DefaultRegisterForm =
                         </li>
                         <li>
                             <label className="required">Phone number</label>
-                            <input type="tel" className="input-text" onChange={callback.setStateVal} name="phone_number" id="phone_number" required="" />
+                            <Telephone onChange={callback.setStateVal} name="phone_number" id="phone_number" required="" />
                             {/*<div className="error">Please enter an email address</div>*/}
                         </li>
                         <li>
