@@ -13,11 +13,8 @@ class CognitoRegisterForm extends Form {
             message: '',
             family_name: '',
             given_name: '',
-            gender: 'male',
-            phone_number: '',
-            password: '',
-            enable_mfa: false
-        };
+            password: ''
+        }
     }
 
     /**
@@ -33,14 +30,17 @@ class CognitoRegisterForm extends Form {
             }
         }
 
-        let success_path = this.props.success_path ? this.props.success_path : '/'
+        let success_path = this.props.success_path ? this.props.success_path : '/account/verification'
         let onSuccess = () => this.context.router.push(success_path)
         userpool.register(this.state, onFailure, onSuccess)
     }
 
     render() {
         return (
-            this.props.children(this)
+            <div>
+                { this.state.message ? <div className='alert alert-info'>{this.state.message}</div> : '' }
+                { this.props.children(this) }
+            </div>
         )
     }
 }

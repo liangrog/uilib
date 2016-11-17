@@ -5,9 +5,9 @@ class Form extends Component {
         super(props)
     }
 
-    setStateVal = (e) => {
-        this.setState({[e.target.name]: e.target.value})
-    }
+    setStateVal = (e) => this.setState({[e.target.name]: e.target.value})
+
+    getStateVal = (name) => this.state[name]
 }
 
 Form.contextTypes= {
