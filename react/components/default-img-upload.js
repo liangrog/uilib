@@ -12,7 +12,7 @@ class DefaultImgUpload extends Component {
 
     upload = e => {
         e.preventDefault()
-        
+
         let reader = new FileReader()
         let file = e.target.files[0]
 
@@ -21,7 +21,7 @@ class DefaultImgUpload extends Component {
                 file: file,
                 imageUrl: reader.result
             });
-        }   
+        }
 
         reader.readAsDataURL(file)
 
@@ -33,17 +33,18 @@ class DefaultImgUpload extends Component {
         if (this.state.imageUrl) {
             image = (<img src={imagePreviewUrl} />)
         } else {
-            image = (<div className="">{this.props.imgCaption}</div>)
+            image = (<div className="img-caption">{this.props.imgCaption}</div>)
         }
 
         return (
             <div>
-                <div className="">
+                <div className="img-container l_span_2">
                      { image }
+                     <img src="{imagePreviewUrl}" alt />
                 </div>
-                <div className="">
+                <div className="l_span_10 l_last">
                     <a className="" id="upload" onClick={() => this.refs.fileInput.click()}>{this.props.buttonLabel}</a>
-                    <input className="" type="file" ref="fileInput" onChange={this.upload}/>
+                    <input className="btn" type="file" ref="fileInput" onChange={this.upload}/>
                     <p>You can also drag and drop a picture from your computer.</p>
                     <div className="">
                         <p><strong>Upload requirements</strong><br/>

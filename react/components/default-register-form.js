@@ -15,30 +15,30 @@ const DefaultRegisterForm =
     {
         //callback is the RegisterComponent scope this
         (callback) => (
-            <form className="" onSubmit={callback.register}>
+            <form id="register-form" className="bordered_box" onSubmit={callback.register}>
                 <fieldset>
-                    <ul className="">
-                        <li className="">
-                            <label className="" id="">First name</label>
-                            <input type="text" className="" onChange={callback.setStateVal} name="given_name" id="given_name" required="" />
-                            {/*<div className="">Please enter a first name</div>*/}
+                    <ul className="form-list">
+                        <li>
+                            <label className="required">First name</label>
+                            <input type="text" className="input-text" onChange={callback.setStateVal} name="given_name" id="given_name" required="" />
+                            {/*<div className="error">Please enter a first name</div>*/}
                         </li>
-                        <li className="">
-                            <label className="" id="">Last name</label>
-                            <input type="text" className="" onChange={callback.setStateVal} name="family_name" id="family_name" required="" />
-                            {/*<div className="">Please enter a last name</div>*/}
+                        <li>
+                            <label className="required">Last name</label>
+                            <input type="text" className="input-text" onChange={callback.setStateVal} name="family_name" id="family_name" required="" />
+                            {/*<div className=error"">Please enter a last name</div>*/}
                         </li>
-                        <li className="">
-                            <label className="" id="">Email address</label>
-                            <input type="email" className="" onChange={callback.setStateVal} name="email" id="email" required="" />
-                            {/*<div className="">Please enter an email address</div>*/}
+                        <li>
+                            <label className="required">Email address</label>
+                            <input type="email" className="input-text" onChange={callback.setStateVal} name="email" id="email" required="" />
+                            {/*<div className="error">Please enter an email address</div>*/}
                         </li>
-                        <li className="">
-                            <label className="" id="">Phone number</label>
-                            <input type="tel" className="" onChange={callback.setStateVal} name="phone_number" id="phone_number" required="" />
-                            {/*<div className="">Please enter an email address</div>*/}
+                        <li>
+                            <label className="required">Phone number</label>
+                            <input type="tel" className="input-text" onChange={callback.setStateVal} name="phone_number" id="phone_number" required="" />
+                            {/*<div className="error">Please enter an email address</div>*/}
                         </li>
-                        <li className="">
+                        <li>
                             <label className="required">Password</label>
                             <div className="password-container">
                                 <Password onChange={callback.setStateVal} password={callback.getStateVal('password')}/>
@@ -47,15 +47,15 @@ const DefaultRegisterForm =
                         <li>
                             By creating an account you agree to the <a href="#" target="_blank">Terms &amp; Conditions</a> and <a href="#" target="_blank">Privacy Policy</a>.
                         </li>
-                        <li className="">
-                            <div className="">
-                              <button className="" type="submit" id="create">{ submitLabel }</button>
+                        <li className="clearfix">
+                            <div className="button-set">
+                              <button className="btn btn_primary btn_full" type="submit" id="create">{ submitLabel }</button>
                             </div>
                         </li>
                     </ul>
                 </fieldset>
             </form>
-        ) 
+        )
     }
     </RegisterComponent>
 )
