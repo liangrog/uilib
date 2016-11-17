@@ -200,7 +200,7 @@ export const StateSelect = (props) => {
  * select list for state
  */
 export const CountrySelect = (props) => {
-    let options = COUNTRY_AUSTRALIA_ONLY.map(c => ({label:c, value:c}))
+    let options = COUNTRIES.map(c => ({label:c, value:c}))
 
     let local = Immutable.fromJS(props).set('options', options).toJSON()
 
