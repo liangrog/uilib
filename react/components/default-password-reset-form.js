@@ -10,28 +10,28 @@ const DefaultPasswordResetForm = (PasswordResetComponent, context) => (
     {
         //callback is the PasswordResetComponent scope this
         (callback) => (
-            <form className="" onSubmit={callback.sendCode}>
+            <form id="forgot-form" className="bordered_box" onSubmit={callback.sendCode}>
                 <fieldset>
-                <ul className="">
-                    <li className="">
-                        <label className=""  id="">Email address</label>
-                        <input type="email" className=""
+                <ul className="form-list">
+                    <li>
+                        <label className="required">Email address</label>
+                        <input type="email" className="input-text"
                             onChange={callback.setStateVal} name="email" id="email" required="" />
-                        <div className="">Please enter an email address</div>
+                        <div className="error">Please enter an email address</div>
                     </li>
-                    <li className="">
+                    <li>
                         <p>If this is a valid account, your email is on its way!</p>
                     </li>
                     <li className="clearfix">
                         <ul>
                             <li className="l_half">
                                 <div className="buttons-set">
-                                    <button className="btn btn_clear" id="cancel" onClick={callback.cancelReset}>Cancel</button>
+                                    <button className="btn btn_secondary" id="cancel" onClick={callback.cancelReset}>Cancel</button>
                                 </div>
                             </li>
                             <li className="l_half l_last">
                                 <div className="buttons-set">
-                                    <button className="btn" type="submit" id="send">Send Email</button>
+                                    <button className="btn btn_primary" type="submit" id="send">Send Email</button>
                                 </div>
                             </li>
                         </ul>
@@ -39,7 +39,7 @@ const DefaultPasswordResetForm = (PasswordResetComponent, context) => (
                 </ul>
                 </fieldset>
             </form>
-        ) 
+        )
     }
     </PasswordResetComponent>
 )
