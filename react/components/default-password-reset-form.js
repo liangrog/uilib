@@ -5,7 +5,10 @@ import React from 'react'
  * default password reset form
  * can swap password reset wrapper
  */
-const DefaultPasswordResetForm = (PasswordResetComponent, context) => (
+const DefaultPasswordResetForm = 
+    PasswordResetComponent =>
+    ({}) => (
+
     <PasswordResetComponent>
     {
         //callback is the PasswordResetComponent scope this
@@ -22,6 +25,7 @@ const DefaultPasswordResetForm = (PasswordResetComponent, context) => (
                     <li>
                         <p>If this is a valid account, your email is on its way!</p>
                     </li>
+                  
                     <li className="clearfix">
                         <ul>
                             <li className="l_half">

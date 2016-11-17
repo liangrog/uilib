@@ -33,7 +33,7 @@ class DefaultImgUpload extends Component {
         if (this.state.imageUrl) {
             image = (<img src={imagePreviewUrl} />)
         } else {
-            image = (<div className="">{props.imgCaption}</div>)
+            image = (<div className="">{this.props.imgCaption}</div>)
         }
 
         return (
@@ -42,7 +42,7 @@ class DefaultImgUpload extends Component {
                      { image }
                 </div>
                 <div className="">
-                    <a className="" id="upload" onClick={() => this.refs.fileInput.click()}>{props.buttonLabel}</a>
+                    <a className="" id="upload" onClick={() => this.refs.fileInput.click()}>{this.props.buttonLabel}</a>
                     <input className="" type="file" ref="fileInput" onChange={this.upload}/>
                     <p>You can also drag and drop a picture from your computer.</p>
                     <div className="">

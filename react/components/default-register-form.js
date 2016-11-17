@@ -7,8 +7,11 @@ import Password from './password'
  * default account registration form
  * can swap registration wrapper
  */
-const DefaultRegisterForm = (RegisterComponent, context) => (
-    <RegisterComponent>
+const DefaultRegisterForm = 
+    RegisterComponent => 
+    ({ nextPath = '/account/verification', submitLabel = 'Create', ...args} = {}) => (
+
+    <RegisterComponent successPath={nextPath}>
     {
         //callback is the RegisterComponent scope this
         (callback) => (
@@ -46,7 +49,7 @@ const DefaultRegisterForm = (RegisterComponent, context) => (
                         </li>
                         <li className="">
                             <div className="">
-                              <button className="" type="submit" id="create">Create an Agent Account</button>
+                              <button className="" type="submit" id="create">{ submitLabel }</button>
                             </div>
                         </li>
                     </ul>

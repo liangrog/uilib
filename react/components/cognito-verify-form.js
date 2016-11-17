@@ -25,14 +25,14 @@ class CognitoVerifyForm extends Form {
         let onFailure = (err) => {
             this.setState({message: err.message})
         }
-        var onSuccess = () => this.context.router.push('/account/login')
+        var onSuccess = () => this.context.router.push(this.props.successPath != undefined ? this.props.successPath : '/account/login')
         console.log(this.state);
         userpool.registerConfirmByCode(null, this.state.code, onFailure, onSuccess)
     }
 
-    cancelVerify = () => this.context.router.push('/account/login')
+    cancelVerify = (e) => this.context.router.push(this.props.cancelPath != undefined ? this.props.cancelPath : '/account/login')
 
-    resend = () => {
+    resend = (e) => {
         let onFailure = (err) => {
             this.setState({message: err.message})
         }
@@ -47,7 +47,8 @@ class CognitoVerifyForm extends Form {
 }
 
 CognitoVerifyForm.propTypes = {
-    success_path: PropTypes.string,
+    successPath: PropTypes.string,
+    cancelPath: PropTypes.string,
     children: PropTypes.func.isRequired
 }
 

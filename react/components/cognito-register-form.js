@@ -9,10 +9,12 @@ class CognitoRegisterForm extends Form {
 
     constructor(props) {
         super(props)
+        //mandatory state => element
         this.state = {
             message: '',
             family_name: '',
             given_name: '',
+            email: '',
             password: ''
         }
     }
@@ -30,8 +32,8 @@ class CognitoRegisterForm extends Form {
             }
         }
 
-        let success_path = this.props.success_path ? this.props.success_path : '/account/verification'
-        let onSuccess = () => this.context.router.push(success_path)
+        let onSuccess = () => this.context.router.push(this.props.successPath != undefined ? this.props.successPath : '/')
+        
         userpool.register(this.state, onFailure, onSuccess)
     }
 
@@ -46,7 +48,7 @@ class CognitoRegisterForm extends Form {
 }
 
 CognitoRegisterForm.propTypes = {
-    success_path: PropTypes.string,
+    successPath: PropTypes.string,
     children: PropTypes.func.isRequired
 }
 

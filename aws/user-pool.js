@@ -90,7 +90,8 @@ class UserPool {
         for (let key in formData) {
             if (key != 'username'
                 && key != 'password'
-                && allowAttr.find((element) => element == key)) {
+                && allowAttr.find((element) => element == key)
+                && formData[key].length > 0) {
                 newFormData[key] = formData[key]
             }
         }

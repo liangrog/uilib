@@ -9,7 +9,7 @@ import Password from './password'
  */
 const DefaultLoginForm = 
     AuthComponent => 
-    ( { userLabel = 'Your Login ID', passwordLabel = 'Password', submitLabel = 'Sign into Your Account' } = {} )  => {
+    ( { userLabel = 'Your Login ID', passwordLabel = 'Password', submitLabel = 'Sign into Your Account', ...args } = {} )  => {
 
     return (
         <AuthComponent>
