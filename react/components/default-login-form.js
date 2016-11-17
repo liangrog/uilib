@@ -14,8 +14,8 @@ const DefaultLoginForm = (AuthComponent, context) => (
                 <fieldset>
                     <ul className="form-list">
                         <li>
-                            <label className="required">Email address or mobile</label>
-                            <input type="text" className="input-text" onChange={callback.setStateVal} autoFocus name="userId" id="userId" required="" />
+                            <label className="required">Your ID <span className="optional">(email or mobile)</span></label>
+                            <input type="text" className="input-text" onChange={callback.setStateVal} autoFocus="focus" name="userId" id="userId" required="" />
                             <div className="error">Please enter your verified email or mobile number</div>
                         </li>
                         <li>
@@ -31,7 +31,7 @@ const DefaultLoginForm = (AuthComponent, context) => (
                         </li>
                         <li className="clearfix">
                             <div className="buttons-set">
-                                <button className="btn btn_large btn_full" type="submit" id="login">Sign into Your Account</button>
+                                <button className="btn btn_large btn_full" type="submit" id="login" title="Sign into Your Account">Sign into Your Account</button>
                             </div>
                         </li>
                         <li className="l_center control">
