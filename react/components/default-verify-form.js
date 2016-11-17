@@ -33,13 +33,13 @@ const DefaultVerificationForm =
                             <div className="buttons-set">
                                 <div>
                                     <button type="button"
-                                        id="cancel" className="btn btn_grey btn_cancel"
+                                        id="cancel" className="btn btn_grey btn_cancel btn_margin"
                                         onClick={callback.cancelVerify}>
                                         Cancel
                                     </button>
                                 </div>
                                 <div>
-                                    <button type="submit" id="verify" className="btn btn_full btn_has_arrow btn_icon">{ submitLabel }</button>
+                                    <button type="submit" id="verify" className="btn btn_full btn_has_arrow btn_icon btn_margin">{ submitLabel }</button>
                                 </div>
                             </div>
                         </li>

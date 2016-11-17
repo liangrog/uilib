@@ -406,21 +406,19 @@ class UserPool {
      */
     forgotPassword(username, conFailure, conSuccess) {
         this.getCognitoUser(username).forgotPassword({
-            onSuccess: (result) => {
-                logger.log(result)
+            onSuccess: function() {
+                logger.log('Code sent')
                 if (typeof conSuccess == 'function') {
                     return conSuccess()
                 }
             },
-            onFailure: (err) => {
+            onFailure: function(err) {
                 logger.log(err)
                 if (typeof conFailure == 'function') {
                     return conFailure(err)
                 }
             },
-            inputVerificationCode: () => {
-                //two step verifycation, call confirmPassword afterwards
-            } 
+            inputVerificationCode: false 
         })
     }
 

@@ -12,7 +12,9 @@ class CognitoPasswordResetForm extends Form {
         this.state = {
             id: '',
             message:'',
-            code: ''
+            code: '',
+            password: '',
+            isActive: false
         }
     }
 
@@ -22,12 +24,19 @@ class CognitoPasswordResetForm extends Form {
      */
     sendCode = (e) => {
         e.preventDefault()
+        //close code input
+        this.onToggle
+
         let onFailure = (err) => {
             this.setState({message: err.message})
         }
-        let onSuccess = () => this.context.router.push('/account/login')
+
+        let onSuccess = () => this.onToggle()
+        
         userpool.forgotPassword(this.state.id, onFailure, onSuccess)
     }
+
+    onToggle = () => this.setState({isActive: !this.state.isActive})
 
     changePassword = (e) => {
         e.preventDefault()
@@ -45,7 +54,10 @@ class CognitoPasswordResetForm extends Form {
 
     render() {
         return (
-            this.props.children(this)
+            <div>
+                { this.state.message ? <div className='alert alert-info'>{this.state.message}</div> : '' }
+                { this.props.children(this) }
+            </div>
         )
     }
 }

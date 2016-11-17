@@ -20,7 +20,7 @@ const DefaultRegisterForm =
                     <ul className="form-list">
                         <li>
                             <label className="required">First name</label>
-                            <input type="text" className="input-text" onChange={callback.setStateVal} name="given_name" id="given_name" required="" />
+                            <input type="text" autoFocus="focus" className="input-text" onChange={callback.setStateVal} name="given_name" id="given_name" required="" />
                             {/*<div className="error">Please enter a first name</div>*/}
                         </li>
                         <li>
@@ -45,11 +45,11 @@ const DefaultRegisterForm =
                             </div>
                         </li>
                         <li>
-                            By creating an account you agree to the <a href="#" target="_blank">Terms &amp; Conditions</a> and <a href="#" target="_blank">Privacy Policy</a>.
+                            By creating an account you agree to the <a href="#" target="_blank" className="link_secondary">Terms &amp; Conditions</a> and <a href="#" target="_blank" className="link_secondary">Privacy Policy</a>.
                         </li>
                         <li className="clearfix">
                             <div className="button-set">
-                              <button className="btn btn_primary btn_full" type="submit" id="create">{ submitLabel }</button>
+                              <button className="btn btn_primary btn_full btn_margin" type="submit" id="create">{ submitLabel }</button>
                             </div>
                         </li>
                     </ul>

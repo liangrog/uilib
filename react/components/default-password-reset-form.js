@@ -29,12 +29,12 @@ const DefaultPasswordResetForm =
                             <ul>
                                 <li className="l_half">
                                     <div className="buttons-set">
-                                        <button className="btn btn_secondary" id="cancel" onClick={callback.cancelReset}>Cancel</button>
+                                        <button className="btn btn_secondary btn_margin" id="cancel" onClick={callback.cancelReset}>Cancel</button>
                                     </div>
                                 </li>
                                 <li className="l_half l_last">
                                     <div className="buttons-set">
-                                        <button className="btn btn_primary" type="submit" id="send">{ sendCodeLabel }</button>
+                                        <button className="btn btn_primary btn_right btn_margin" type="submit" id="send">{ sendCodeLabel }</button>
                                     </div>
                                 </li>
                             </ul>
