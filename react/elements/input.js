@@ -20,6 +20,7 @@ export const InputBase = (props) => {
                     required={props.required}
                     minLength={props.minLength}
                     maxLength={props.maxLength}
+                    readOnly={props.readOnly}
                     />
         )
 
@@ -37,6 +38,7 @@ export const InputBase = (props) => {
                     required={props.required}
                     minLength={props.minLength}
                     maxLength={props.maxLength}
+                    readOnly={props.readOnly}
                     />
         )
     }
@@ -59,7 +61,8 @@ InputBase.propTypes = {
     ]),
     autoFocus: React.PropTypes.bool,
     minLength: React.PropTypes.number,
-    maxLength: React.PropTypes.number
+    maxLength: React.PropTypes.number,
+    readOnly: React.PropTypes.bool
 }
 
 InputBase.defaultProps = {
@@ -68,7 +71,8 @@ InputBase.defaultProps = {
     type: 'text',
     autoFocus: false,
     defaultValue: '',
-    required: false
+    required: false,
+    readOnly: false
 }
 
 export const Input = fieldValidationDecor(InputBase)

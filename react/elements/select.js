@@ -19,7 +19,7 @@ export const SelectBase = (props) => {
 
     if (props.value !== undefined) {
         return (
-            <div className="select_wrap">
+            <div className={"select_wrap " + props.wrapperClassName}>
                 <select id={props.id}
                         className={props.className}
                         name={props.name}
@@ -34,7 +34,7 @@ export const SelectBase = (props) => {
         )
     } else {
         return (
-            <div className="select_wrap">
+            <div className={"select_wrap " + props.wrapperClassName}>
                 <select id={props.id}
                         className={props.className}
                         name={props.name}
@@ -69,14 +69,16 @@ SelectBase.propTypes = {
             label: React.PropTypes.string,
             value: React.PropTypes.string
        }).isRequired
-    )
+    ),
+    wrapperClassName: React.PropTypes.string
 }
 
 SelectBase.defaultProps = {
     id: '',
     className: '',
     required: false,
-    autoFocus: false
+    autoFocus: false,
+    wrapperClassName: ''
 }
 
 export const Select = fieldValidationDecor(SelectBase)
