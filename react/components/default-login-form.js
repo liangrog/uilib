@@ -7,9 +7,9 @@ import Password from './password'
  * default login form
  * can swap authentication wrapper
  */
-const DefaultLoginForm = (AuthComponent, context) => {
-    //set default value
-    let { userLabel = 'Your Login ID', passwordLabel = 'Password', submitLabel = 'Sign into Your Account' } = context
+const DefaultLoginForm = 
+    AuthComponent => 
+    ( { userLabel = 'Your Login ID', passwordLabel = 'Password', submitLabel = 'Sign into Your Account' } = {} )  => {
 
     return (
         <AuthComponent>
@@ -48,6 +48,7 @@ const DefaultLoginForm = (AuthComponent, context) => {
         }
         </AuthComponent>
     )
+
 }
 
 
