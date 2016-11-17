@@ -56,5 +56,9 @@ class DefaultImgUpload extends Component {
     }
 }
 
+DefaultImgUpload.defaultProps = {
+    imgCaption: '',
+    buttonLabel: 'Upload'
+}
 
 export default DefaultImgUpload
