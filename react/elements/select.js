@@ -179,8 +179,7 @@ const optionBuilder = (ele) => ({label:ele, value:ele})
  */
 export const CountryDialCodeSelect = (props) => {
     let options = COUNTRY_DIAL_CODES.map(code => ({label:code, value:code}))
-    if (props.whiteList){
-    }
+
     let local = Immutable.fromJS(props).set('options', options).toJSON()
 
     return <Select {...local} />
