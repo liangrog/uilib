@@ -48,7 +48,7 @@ export const fetchUri =
         },
         requestSubject = makeActionCreator('DUMMY_ACTION'),
         receiveSubject,
-        onFailure = (error) => logger.log(error, 'exception')
+        onFailure = (error) => logger.log(error, 'error')
     } = action
 
     if (typeof receiveSubject != 'function') {
@@ -59,7 +59,7 @@ export const fetchUri =
         dispatch(requestSubject(subject))
         return fetch(uri, params)
             .then(response => response.json())
-            .then(json => dispatch(receiveSubject(subject, json)))
+            .then(json => dispatch(receiveSubject(json, subject)))
             .catch(onFailure)
     }
 }
