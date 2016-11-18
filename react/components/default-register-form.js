@@ -46,7 +46,7 @@ const DefaultRegisterForm = (RegisterComponent, context) => (
                         </li>
                         <li className="clearfix">
                             <div className="button-set">
-                              <button className="btn btn_primary btn_full btn_margin_small" type="submit" id="create">Create an Account</button>
+                              <button className="btn btn_primary btn_full btn_margin" type="submit" id="create">Create an Account</button>
                             </div>
                         </li>
                     </ul>
