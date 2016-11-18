@@ -20,11 +20,11 @@ const DefaultImgUpload =
                             </li>
                         </ul>
                             <div className="img-container l_span_2">
-                                <img className="profile-preview" src={callbackUpload.state.imageUrl} />
+                                <img className="profile-preview" src={callbackUpload.state.imageUrl || require("../../../assets/images/profile-preview.png") } />
                             </div>
                             <div className="l_span_10 l_last">
-                                <a className="" id="upload" onClick={() => this.refs.fileInput.click()}>{this.props.buttonLabel}</a>
-                                <input className="btn btn_secondary btn_margin_small" type="file" name="files[]" ref="fileInput" onChange={this.upload} />
+                                {/*<a className="" id="upload" onClick={() => this.refs.fileInput.click()}>{label}</a>*/}
+                                <input className="btn btn_secondary btn_margin_small" type="file" name="files[]" ref="fileInput" onChange={callbackUpload.upload} />
                                 {/*<p>You can also drag and drop a picture from your computer.</p>*/}
                                 <div className="">
                                     <p><strong>Upload requirements</strong><br/>
