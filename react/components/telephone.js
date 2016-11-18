@@ -3,7 +3,7 @@ import React from 'react'
 import Form from './form'
 import { Input } from '../elements/input'
 import { DataSelect } from '../elements/select'
-
+import uiHelper from '../../utils/ui-helper'
 
 class Telephone extends Form {
 
@@ -16,15 +16,15 @@ class Telephone extends Form {
     }
 
     updatePhoneNumber = (e) => {
-        // Update local tel params
-        this.state[e.target.name] = e.target.value
+        // Update local tel params 
+        this.setState({[e.target.name]: e.target.value})
 
         // Fire onChange
         this.props.onChange(
             {
                 target: {
                     name: this.props.name,
-                    value: this.state[this.countryCodeName] + this.state[this.phoneNumberName]
+                    value: uiHelper.valOr(this.state[this.countryCodeName]) + uiHelper(this.state[this.phoneNumberName])
                 }
             }
         )

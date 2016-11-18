@@ -141,14 +141,15 @@ export const DataSelect =
     } else {
         options = data
     }
-    
+    options.unshift(optionBuilder(''))
+
     let local = Immutable.fromJS(props).set('options', options).toJSON()
 
     return <Select {...local} />
 }
 
 const getDataByType = type => {
-    let data = {}
+    let data = []
     switch (type) {
         case 'countryDialCode':
             data = COUNTRY_DIAL_CODES.map(optionBuilder)
@@ -166,7 +167,6 @@ const getDataByType = type => {
             data = SPONSOR_PERIODS
             break
     }
-    
     return data
 }
 
