@@ -7,15 +7,9 @@ import Password from './password'
  * default login form
  * can swap authentication wrapper
  */
-<<<<<<< HEAD
-const DefaultLoginForm = 
-    AuthComponent => 
-    ( { userLabel = 'Your Login ID', passwordLabel = 'Password', submitLabel = 'Sign into Your Account' } = {} )  => {
-=======
 const DefaultLoginForm =
     AuthComponent =>
     ( { userLabel = 'ID', passwordLabel = 'Password', submitLabel = 'Sign into Your Account' } = {} )  => {
->>>>>>> mymaster
 
     return (
         <AuthComponent>
@@ -26,11 +20,7 @@ const DefaultLoginForm =
                     <fieldset>
                         <ul className="form-list">
                             <li>
-<<<<<<< HEAD
-                                <label className="required">{ userLabel }</label>
-=======
                                 <label className="required">{ userLabel } <span className="optional">(email or mobile)</span></label>
->>>>>>> mymaster
                                 <input type="text" className="input-text" onChange={callback.setStateVal} autoFocus name="userId" id="userId" required="" />
                                 {/*<div className="error">Please enter your verified email or mobile number</div>*/}
                             </li>
@@ -43,11 +33,7 @@ const DefaultLoginForm =
                             </li>
                             <li className="clearfix">
                                 <div className="buttons-set">
-<<<<<<< HEAD
-                                    <button className="btn btn_large btn_full" type="submit" id="login">{ submitLabel }</button>
-=======
                                     <button className="btn btn_primary btn_full" type="submit" id="login">{ submitLabel }</button>
->>>>>>> mymaster
                                 </div>
                             </li>
                             <li className="l_center control">

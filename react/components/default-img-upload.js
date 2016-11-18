@@ -31,19 +31,20 @@ class DefaultImgUpload extends Component {
     render = () => {
         let image = null
         if (this.state.imageUrl) {
-            image = (<img src={imagePreviewUrl} alt />)
+            image = (<img src={imagePreviewUrl} />)
         } else {
-            image = (<div className="image_preview"></div>)
+            image = (<div className="img-caption"></div>)
         }
 
         return (
             <div>
-                <div className="l_span_2">
-                    { image }
+                <div className="img-container l_span_2">
+                     { image }
+                     <img src="{imagePreviewUrl}" alt />
                 </div>
-                <div className="l_span_9 l_last">
+                <div className="l_span_10 l_last">
                     <a className="" id="upload" onClick={() => this.refs.fileInput.click()}></a>
-                    <input className="input-text" type="file" ref="fileInput" onChange={this.upload}/>
+                    <input className="btn" type="file" ref="fileInput" onChange={this.upload}/>
                     <p>You can also drag and drop a picture from your computer.</p>
                     <div className="">
                         <p><strong>Upload requirements</strong><br/>
