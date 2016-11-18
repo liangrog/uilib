@@ -3,6 +3,19 @@ import React, { Component, PropTypes } from 'react'
 class Form extends Component {
     constructor(props) {
         super(props)
+        this.formKeys = []
+    }
+
+    updateFormData = (formKeys, props) => {
+        this.formKeys.forEach((key) => {
+            this.setState({[key]: uiHelper.valOr(props[key])})
+        })
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (this.formKey.length) {
+            this.updateFormData(this.formKeys, nextProps.profile)
+        }
     }
 
     setStateVal = (e) => this.setState({[e.target.name]: e.target.value})

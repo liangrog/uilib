@@ -39,6 +39,7 @@ export const SelectBase = (props) => {
                         className={props.className}
                         name={props.name}
                         defaultValue={props.defaultValue}
+                        value={props.value}
                         onChange={props.onChange}
                         autoFocus={props.autoFocus}
                         required={props.required}
@@ -56,6 +57,7 @@ SelectBase.propTypes = {
     className: React.PropTypes.string,
     onChange: React.PropTypes.func,
     name: React.PropTypes.string,
+    value: React.PropTypes.string,
     defaultValue: React.PropTypes.string,
     required: React.PropTypes.oneOfType([
         React.PropTypes.string,
