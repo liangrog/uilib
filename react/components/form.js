@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import Immutable from 'immutable'
 
 import uiHelper from '../../utils/ui-helper'
 
@@ -26,6 +27,13 @@ class Form extends Component {
     }
 
     setStateVal = (e) => this.setState({[e.target.name]: e.target.value})
+
+    setStateValDeep = (e) => {
+        let newState = Immutable.fromJS(this.state).toJSON()
+        newState = uiHelper.deepAssign(newState, e.target.name, e.target.value)
+        this.setState(newState)
+        console.log(newState)
+    }
 
     getStateVal = (name) => this.state[name]
 }

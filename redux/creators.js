@@ -46,17 +46,21 @@ export const fetchUri =
             cache: 'default',
             body: {}
         },
-        requestSubject = makeActionCreator('DUMMY_ACTION'),
+        requestSubject = null,
         receiveSubject,
         onFailure = (error) => logger.log(error, 'error')
     } = action
 
-    if (typeof receiveSubject != 'function') {
+    if (requestSubject !== null && typeof receiveSubject != 'function') {
         throw new Error('Expected receiveSubject is a function')
     }
 
     return (dispatch) => {
-        dispatch(requestSubject(subject))
+
+        if (requestSubject !== null) {
+            dispatch(requestSubject(subject))
+        }
+
         return fetch(uri, params)
             .then(response => response.json())
             .then(json => dispatch(receiveSubject(json, subject)))
