@@ -15,9 +15,13 @@ class Form extends Component {
         })
     }
 
+    componentWillMount() {
+        this.updateFormData(this.formKeys, this.props.formData)
+    }
+
     componentWillReceiveProps(nextProps) {
         if (this.formKeys.length) {
-            this.updateFormData(this.formKeys, nextProps.profile)
+            this.updateFormData(this.formKeys, nextProps.formData)
         }
     }
 
