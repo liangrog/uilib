@@ -48,8 +48,8 @@ class DefaultImgUpload extends Component {
                      <img className="profile-preview" alt="" src="http://www.asianplasticsurgeryguide.com/images/blog/asianman.jpg" />
                 </div>
                 <div className="l_span_10 l_last">
-                    <a className="" id="upload" onClick={() => this.refs.fileInput.click()}>{this.props.buttonLabel}</a>
-                    <input className="btn btn_primary btn_margin_small" type="file" ref="fileInput" onChange={this.upload}/>
+                    {/*<a className="" id="upload" onClick={() => this.refs.fileInput.click()}>{this.props.buttonLabel}</a>*/}
+                    <input className="btn btn_secondary btn_margin_small" type="file" ref="fileInput" onChange={this.upload}/>
                     <p>You can also drag and drop a picture from your computer.</p>
                     <div className="">
                         <p><strong>Upload requirements</strong><br/>
