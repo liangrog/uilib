@@ -33,7 +33,7 @@ const DefaultLoginForm =
                             </li>
                             <li className="clearfix">
                                 <div className="buttons-set">
-                                    <button className="btn btn_primary btn_full" type="submit" id="login">{ submitLabel }</button>
+                                    <button className="btn btn_primary btn_full btn_margin_small" type="submit" id="login" title="">{ submitLabel }</button>
                                 </div>
                             </li>
                             <li className="l_center control">
