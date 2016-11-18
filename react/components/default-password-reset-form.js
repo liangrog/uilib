@@ -17,7 +17,7 @@ const DefaultPasswordResetForm = (PasswordResetComponent, context) => (
                         <label className="required">Email address</label>
                         <input type="email" className="input-text"
                             onChange={callback.setStateVal} name="email" id="email" required="" />
-                        <div className="error">Please enter an email address</div>
+                        {/* <div className="error">Please enter an email address</div> */}
                     </li>
                     <li>
                         <p>If this is a valid account, your email is on its way!</p>
@@ -26,12 +26,12 @@ const DefaultPasswordResetForm = (PasswordResetComponent, context) => (
                         <ul>
                             <li className="l_half">
                                 <div className="buttons-set">
-                                    <button className="btn btn_secondary" id="cancel" onClick={callback.cancelReset}>Cancel</button>
+                                    <button className="btn btn_secondary btn_margin" id="cancel" onClick={callback.cancelReset}>Cancel</button>
                                 </div>
                             </li>
                             <li className="l_half l_last">
                                 <div className="buttons-set">
-                                    <button className="btn btn_primary btn_right" type="submit" id="send">Send Email</button>
+                                    <button className="btn btn_primary btn_right btn_margin" type="submit" id="send">Send Email</button>
                                 </div>
                             </li>
                         </ul>
