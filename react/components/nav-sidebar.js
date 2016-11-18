@@ -21,7 +21,7 @@ class NavSidebar extends Component {
         let progressComponent = this.props.progress || null
 
         return (
-            <div className="left-col">
+            <div className="left-col l_span_3">
                 { progressComponent }
                 <ul className="left-sub-nav">
                     { items }
