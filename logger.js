@@ -24,6 +24,11 @@ class Logger {
     warn(msg) {
         console.warn(msg)
     }
+
+    exception(msg) {
+        console.exception(msg)
+    }
+
 }
 
 var logger = new Logger()
