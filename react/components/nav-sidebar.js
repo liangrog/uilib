@@ -9,9 +9,9 @@ class NavSidebar extends Component {
     }
 
     render = () => {
-        let items = this.props.items.map(function(item) {
+        let items = this.props.items.map(function(item, i) {
             return (
-                <li key={item.href}>
+                <li key={i}>
                     <Link to={item.href} activeClassName="active" onlyActiveOnIndex={true}>
                         {item.title}
                     </Link>
