@@ -1,5 +1,8 @@
 import React, { Component, PropTypes } from 'react'
 
+import uiHelper from '../../utils/ui-helper'
+
+
 class Form extends Component {
     constructor(props) {
         super(props)
@@ -13,7 +16,7 @@ class Form extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (this.formKey.length) {
+        if (this.formKeys.length) {
             this.updateFormData(this.formKeys, nextProps.profile)
         }
     }
