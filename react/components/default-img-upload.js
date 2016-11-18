@@ -40,7 +40,7 @@ class DefaultImgUpload extends Component {
             <div>
                 <div className="img-container l_span_2">
                      { image }
-                     <img src="{imagePreviewUrl}" alt />
+                     <div className="profile-preview" ></div>
                 </div>
                 <div className="l_span_10 l_last">
                     <a className="" id="upload" onClick={() => this.refs.fileInput.click()}></a>

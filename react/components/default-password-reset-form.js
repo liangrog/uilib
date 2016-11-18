@@ -31,7 +31,7 @@ const DefaultPasswordResetForm = (PasswordResetComponent, context) => (
                             </li>
                             <li className="l_half l_last">
                                 <div className="buttons-set">
-                                    <button className="btn btn_primary" type="submit" id="send">Send Email</button>
+                                    <button className="btn btn_primary btn_right" type="submit" id="send">Send Email</button>
                                 </div>
                             </li>
                         </ul>
