@@ -11,9 +11,14 @@ class Form extends Component {
     }
 
     updateFormData = (formKeys, props) => {
-        this.formKeys.forEach((key) => {
-            this.setState({[key]: uiHelper.valOr(props[key])})
-        })
+        //only run this function if formKey defined
+        if (this.formKeys.length) {
+            this.formKeys.forEach((key) => {
+                if (props) {
+                    this.setState({[key]: uiHelper.valOr(props[key])})
+                }
+            })
+        }
     }
 
     componentWillMount() {
@@ -21,9 +26,7 @@ class Form extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (this.formKeys.length) {
-            this.updateFormData(this.formKeys, nextProps.formData)
-        }
+        this.updateFormData(this.formKeys, nextProps.formData)
     }
 
     setStateVal = (e) => this.setState({[e.target.name]: e.target.value})
