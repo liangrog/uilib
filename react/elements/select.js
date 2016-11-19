@@ -3,7 +3,7 @@ import Immutable from 'immutable'
 
 import fieldValidationDecor from '../components/field-validation-decor'
 import AUSTRALIA_STATES from '../../data/australia-states'
-import { COUNTRY_AUSTRALIA_ONLY, COUNTRY_DIAL_CODES } from '../../data/countries'
+import { COUNTRIES, COUNTRY_DIAL_CODES } from '../../data/countries'
 import { VISA_TYPES, SPONSOR_PERIODS } from '../../data/visas'
 
 
@@ -19,11 +19,11 @@ export const SelectBase = (props) => {
 
     if (props.value !== undefined) {
         return (
-            <div className={"select_wrap " + props.wrapperClassName}>
+            <div className={`select_wrap ${props.wrapperClassName}`}>
                 <select id={props.id}
                         className={props.className}
                         name={props.name}
-                        value={props.value}
+                        defaultValue={props.defaultValue}
                         onChange={props.onChange}
                         autoFocus={props.autoFocus}
                         required={props.required}
@@ -34,10 +34,11 @@ export const SelectBase = (props) => {
         )
     } else {
         return (
-            <div className={"select_wrap " + props.wrapperClassName}>
+            <div className={`select_wrap ${props.wrapperClassName}`}>
                 <select id={props.id}
                         className={props.className}
                         name={props.name}
+                        defaultValue={props.defaultValue}
                         onChange={props.onChange}
                         autoFocus={props.autoFocus}
                         required={props.required}
@@ -55,10 +56,7 @@ SelectBase.propTypes = {
     className: React.PropTypes.string,
     onChange: React.PropTypes.func,
     name: React.PropTypes.string,
-    value: React.PropTypes.oneOfType([
-        React.PropTypes.string,
-        React.PropTypes.number
-    ]),
+    defaultValue: React.PropTypes.string,
     required: React.PropTypes.oneOfType([
         React.PropTypes.string,
         React.PropTypes.bool
@@ -70,7 +68,8 @@ SelectBase.propTypes = {
             value: React.PropTypes.string
        }).isRequired
     ),
-    wrapperClassName: React.PropTypes.string
+    wrapperClassName: React.PropTypes.string,
+    defaultValue: React.PropTypes.string
 }
 
 SelectBase.defaultProps = {
@@ -78,9 +77,12 @@ SelectBase.defaultProps = {
     className: '',
     required: false,
     autoFocus: false,
-    wrapperClassName: ''
+    wrapperClassName: '',
+    defaultValue: ''
 }
 
+//Steven, decor should be used in actual form,
+//shouldn't be used here, please change.
 export const Select = fieldValidationDecor(SelectBase)
 
 /**
@@ -124,6 +126,55 @@ GenderSelect.defaultProps = {
 }
 
 /**
+ * select list for data set
+ */
+export const DataSelect = 
+    type =>
+    props => {
+    let data = getDataByType(type)
+
+    let options = {}
+    if (props.whiteList) {
+        options = data.filter((ele) => props.whiteList.includes(ele.value))
+    } else {
+        options = data
+    }
+    
+    let local = Immutable.fromJS(props).set('options', options).toJSON()
+
+    return <Select {...local} />
+}
+
+const getDataByType = type => {
+    let data = {}
+    switch (type) {
+        case 'countryDialCode':
+            data = COUNTRY_DIAL_CODES.map(optionBuilder)
+            break
+        case 'ausSate':
+            data = AUSTRALIA_STATES.map(optionBuilder)
+            break
+        case 'country':
+            data = COUNTRIES.map(optionBuilder)
+            break
+        case 'visa':
+            data = VISA_TYPES.map(optionBuilder)
+            break
+        case 'sponsorPeriod':
+            data = SPONSOR_PERIODS
+            break
+    }
+    
+    return data
+}
+
+const optionBuilder = (ele) => ({label:ele, value:ele})
+
+/*********************************************************************/
+/****************** below are obsolete *******************************/
+/**************  Stephenj, please update your code! ******************/
+
+/**
  * select list for country calling codes
  */
 export const CountryDialCodeSelect = (props) => {
@@ -149,7 +200,7 @@ export const StateSelect = (props) => {
  * select list for state
  */
 export const CountrySelect = (props) => {
-    let options = COUNTRY_AUSTRALIA_ONLY.map(c => ({label:c, value:c}))
+    let options = COUNTRIES.map(c => ({label:c, value:c}))
 
     let local = Immutable.fromJS(props).set('options', options).toJSON()
 

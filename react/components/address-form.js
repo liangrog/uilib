@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 
 import uiHelper from '../../utils/ui-helper'
 import { Input } from '../elements/input'
-import { StateSelect, CountrySelect } from '../elements/select'
+import { DataSelect } from '../elements/select'
 
 
 class AddressForm extends Component {
@@ -12,6 +12,23 @@ class AddressForm extends Component {
     }
 
     render = () => {
+        let stateEle = {
+            name: uiHelper.makeName(this.props.namePrefix, "state"),
+            defaultValue: uiHelper.valOr(this.props.address.state),
+            required: this.props.address.required,
+            whiteList: ['+61', '+86'],
+            onChange: this.props.onUserInput
+        }
+
+        let countryEle = {
+            name: uiHelper.makeName(this.props.namePrefix, "country"),
+            defaultValue: uiHelper.valOr(this.props.address.state),
+            required: this.props.address.required,
+            onChange: this.props.onUserInput
+        }
+
+
+
         return (
             <ul className="form-list">
                 <li className="l_half">
@@ -19,9 +36,9 @@ class AddressForm extends Component {
                     <Input className="input-text"
                             type="text"
                             name={uiHelper.makeName(this.props.namePrefix, "address_line_1")}
-                            value={uiHelper.valOr(this.props.address.address_line_1)}
+                            defaultValue={uiHelper.valOr(this.props.address.address_line_1)}
                             onChange={this.props.onUserInput}
-                            required={true}
+                            required={this.props.address.required}
                             />
                 </li>
                 <li className="l_half l_last">
@@ -29,7 +46,7 @@ class AddressForm extends Component {
                     <Input className="input-text"
                             type="text"
                             name={uiHelper.makeName(this.props.namePrefix, "address_line_2")}
-                            value={uiHelper.valOr(this.props.address.address_line_2)}
+                            defaultValue={uiHelper.valOr(this.props.address.address_line_2)}
                             onChange={this.props.onUserInput}
                             />
                 </li>
@@ -38,20 +55,15 @@ class AddressForm extends Component {
                     <Input className="input-text"
                             type="text"
                             name={uiHelper.makeName(this.props.namePrefix, "suburb")}
-                            value={uiHelper.valOr(this.props.address.suburb)}
+                            defaultValue={uiHelper.valOr(this.props.address.suburb)}
                             onChange={this.props.onUserInput}
-                            required={true}
+                            required={this.props.address.required}
                             />
                 </li>
                 <li className="l_span_3">
                     <label className="required">State</label>
                     <div className="select_wrap">
-                        <StateSelect
-                                name={uiHelper.makeName(this.props.namePrefix, "state")}
-                                value={uiHelper.valOr(this.props.address.state)}
-                                onChange={this.props.onUserInput}
-                                required={true}
-                                />
+                        { DataSelect('ausState')(stateEle) }
                     </div>
                 </li>
                 <li className="l_span_3 l_last">
@@ -59,21 +71,16 @@ class AddressForm extends Component {
                     <Input className="input-text"
                             type="number"
                             name={uiHelper.makeName(this.props.namePrefix, "postcode")}
-                            value={uiHelper.valOr(this.props.address.postcode)}
+                            defaultValue={uiHelper.valOr(this.props.address.postcode)}
                             onChange={this.props.onUserInput}
-                            required={true}
-                            maxLength={5}
+                            required={this.props.address.required}
+                            maxLength={10}
                             />
                 </li>
                 <li className="l_half">
                     <label className="required">Country</label>
                     <div className="select_wrap">
-                        <CountrySelect
-                                name={uiHelper.makeName(this.props.namePrefix, "country")}
-                                value={uiHelper.valOr(this.props.address.country)}
-                                onChange={this.props.onUserInput}
-                                required={true}
-                                />
+                        { DataSelect('country')(countryEle) }
                     </div>
                 </li>
             </ul>

@@ -18,7 +18,7 @@ class UiHelper {
     // Make the deep path name
     makeName(prefix, name) {
         if (prefix) {
-            return prefix + '[' + name + ']'
+            return `${prefix}[${name}]`
         } else {
             return name
         }
