@@ -8,17 +8,18 @@ class FormBottomNav extends Component {
 
     render = () => {
         return (
-            <div class="button_footer">
-                <div class="l_span_6">
-                    <a class="btn btn-clear btn-icon btn-icon-back" id="back">Back</a>
+            <div className="button_footer">
+                <hr className="hr1" />
+                <div className="l_span_6">
+                    <a className="btn btn-clear btn_icon btn-icon-back btn_icon_back" id="back">Back</a>
                 </div>
-                <div class="l_span_6 l_last">
-                    <button class="btn btn-secondary btn-right" type="submit" id="save">Save</button>
-                    <button class="btn btn-primary btn-right btn-icon btn-icon-arrow" type="submit" id="next">Next</button>
+                <div className="l_span_6 l_last">
+                    <button className="btn btn-primary btn-right btn-icon btn-icon-arrow btn_next btn_right btn_has_arrow" type="submit" id="next">Next</button>
+                    <button className="btn btn_secondary btn_right" type="submit" id="save">Save</button>
                 </div>
             </div>
         )
-    }    
+    }
 }
 
 
