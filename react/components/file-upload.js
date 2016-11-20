@@ -43,7 +43,7 @@ class FileUpload extends Component {
                 imageUrl: reader.result
             });
         }
-        
+
         reader.readAsDataURL(file)
     }
 
@@ -58,6 +58,7 @@ class FileUpload extends Component {
             </ul>
                 <div className="img-container l_span_2">
                     <img className="profile-preview" src={this.state.imageUrl} />
+                    <img className="profile-preview" src="../../assets/images/profile-preview.png" />
                 </div>
                 <div className="l_span_10 l_last">
                     {/*<a className="" id="upload" onClick={() => this.refs.fileInput.click()}>{this.props.buttonLabel}</a>*/}
