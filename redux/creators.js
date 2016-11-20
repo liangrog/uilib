@@ -46,8 +46,8 @@ export const fetchUri =
             cache: 'default',
             body: {}
         },
-        requestSubject = makeActionCreator('dummy'),
-        receiveSubject = () => true,
+        requestSubject = makeActionCreator('DUMMY_ACTION'),
+        receiveSubject,
         onFailure = (error) => logger.log(error, 'exception')
     } = action
 
