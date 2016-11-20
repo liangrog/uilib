@@ -23,45 +23,43 @@ export function makeActionCreator(type, ...argNames) {
  *
  * usage:
  *
- * store.dispatch('https://example.com/blah')(
+ * store.dispatch(fetchUri('https://example.com/blah')(
  *  {
- *      subject: blah, 
+ *      subject: blah,
  *      params: {
- *          method: 'POST', 
- *          headers: {'Content-Type': 'application/json'}, 
+ *          method: 'POST',
+ *          headers: {'Content-Type': 'application/json'},
  *          body: data
  *      },
  *      receiveSubject: receiveBlah
  * })
  */
-export const fetchUri = 
+export const fetchUri =
     uri =>
     action => {
-    
+
     const {
         subject,
         params = {
-            method = 'GET',
-            mod = 'cors',
-            cache = 'default',
-            body = {}
+            method: 'GET',
+            mod: 'cors',
+            cache: 'default',
+            body: {}
         },
-        requestSubject = () => true,
-        receiveSubject,
+        requestSubject = makeActionCreator('dummy'),
+        receiveSubject = () => true,
         onFailure = (error) => logger.log(error, 'exception')
     } = action
-    
-    if (typeof receiveSubject != 'function') { 
+
+    if (typeof receiveSubject != 'function') {
         throw new Error('Expected receiveSubject is a function')
-    } 
+    }
 
     return (dispatch) => {
         dispatch(requestSubject(subject))
-    
         return fetch(uri, params)
             .then(response => response.json())
             .then(json => dispatch(receiveSubject(subject, json)))
-            .catch(onFailure(error))
-        })
+            .catch(onFailure)
     }
 }
