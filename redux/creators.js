@@ -1,3 +1,7 @@
+import 'whatwg-fetch'
+
+import logger from '../logger'
+
 
 /**
  * create standard sync actions
@@ -14,51 +18,50 @@ export function makeActionCreator(type, ...argNames) {
 }
 
 /**
- * handle async call actions
+ * using ES6 fetch
+ * for URI access
+ *
+ * usage:
+ *
+ * store.dispatch('https://example.com/blah')(
+ *  {
+ *      subject: blah, 
+ *      params: {
+ *          method: 'POST', 
+ *          headers: {'Content-Type': 'application/json'}, 
+ *          body: data
+ *      },
+ *      receiveSubject: receiveBlah
+ * })
  */
-export function callAPIMiddleware({ dispatch, getState }) {
-    return next => action => {
-        const {
-            types,
-            callAPI,
-            shouldCallAPI = () => true,
-            payload = {}
-        } = action
+export const fetchUri = 
+    uri =>
+    action => {
+    
+    const {
+        subject,
+        params = {
+            method = 'GET',
+            mod = 'cors',
+            cache = 'default',
+            body = {}
+        },
+        requestSubject = () => true,
+        receiveSubject,
+        onFailure = (error) => logger.log(error, 'exception')
+    } = action
+    
+    if (typeof receiveSubject != 'function') { 
+        throw new Error('Expected receiveSubject is a function')
+    } 
 
-        if (!types) {
-            // Normal action: pass it on
-            return next(action)
-        }
-
-        if (!Array.isArray(types) ||
-            types.length !== 3 ||
-            !types.every(type => typeof type === 'string')) {
-            throw new Error('Expected an array of three string types.')
-        }
-
-        if (typeof callAPI !== 'function') {
-            throw new Error('Expected callAPI to be a function.')
-        }
-
-        if (!shouldCallAPI(getState())) {
-            return
-        }
-
-        const [ requestType, successType, failureType ] = types
-
-        dispatch(Object.assign({}, payload, {
-            type: requestType
-        }))
-
-        return callAPI().then(
-            response => dispatch(Object.assign({}, payload, {
-                response,
-                type: successType
-            })),
-            error => dispatch(Object.assign({}, payload, {
-                error,
-                type: failureType
-            }))
-        )
+    return (dispatch) => {
+        dispatch(requestSubject(subject))
+    
+        return fetch(uri, params)
+            .then(response => response.json())
+            .then(json => dispatch(receiveSubject(subject, json)))
+            .catch(onFailure(error))
+        })
     }
 }
