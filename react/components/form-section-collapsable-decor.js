@@ -8,26 +8,26 @@ const formSectionCollapsableDecor = (Component) => {
         if (props.collapsed) {
             // Display collapsed view
             return (
-                <div className="clearfix">
-                    <div className="l_span_9">
-                        {
-                            props.collapsedDisplayAttrs.map(
-                                (attr, i) => (
-                                    <span key={i}>
-                                        {props.formData[attr]} &nbsp;
-                                    </span>
+                <div className="l_full new-child">
+                    <div className="clearfix">
+                        <div className="l_span_9">
+                            {
+                                props.collapsedDisplayAttrs.map(
+                                    (attr, i) => (
+                                        <a href="#" className="link" onClick={props.onExpand}>
+                                            <span key={i}>
+                                                {props.formData[attr]} &nbsp;
+                                            </span>
+                                        </a>
+                                    )
                                 )
-                            )
-                        }
-                    </div>
-                    <div className="l_span_3 l_last text-right">
-                        <a href="#" className="link" onClick={props.onExpand}>
-                            Edit
-                        </a>
-                        &nbsp;&nbsp;&nbsp;
-                        <a href="#" className="link" onClick={props.onDelete}>
-                            Delete
-                        </a>
+                            }
+                        </div>
+                        <div className="l_span_3 l_last text-right">
+                            <a href="#" className="delete" onClick={props.onDelete}>
+                                Delete
+                            </a>
+                        </div>
                     </div>
                 </div>
             )
