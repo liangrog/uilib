@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import NavBar from './nav-bar'
+import { Link } from 'react-router'
 
 
 class NavBarItem extends Component {
@@ -8,7 +9,11 @@ class NavBarItem extends Component {
     }
 
     render = () => {
-        let content = [(<a href={this.props.url}>{this.props.text}</a>)]
+        let content = [(
+            <Link to={this.props.url} activeClassName="active" onlyActiveOnIndex={true}>
+                {this.props.text}
+            </Link>
+        )]
         if(this.props.submenu){
             content.push(<NavBar items={this.props.submenu} subnav={true} />);
         }
