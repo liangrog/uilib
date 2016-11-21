@@ -151,7 +151,7 @@ const getDataByType = type => {
         case 'countryDialCode':
             data = COUNTRY_DIAL_CODES.map(optionBuilder)
             break
-        case 'ausSate':
+        case 'ausState':
             data = AUSTRALIA_STATES.map(optionBuilder)
             break
         case 'country':
