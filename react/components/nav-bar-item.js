@@ -21,7 +21,6 @@ class NavBarItem extends Component {
 }
 
 NavBarItem.propTypes = {
-    items: PropTypes.array,
     text: PropTypes.string,
     url: PropTypes.string,
     submenu: PropTypes.array
