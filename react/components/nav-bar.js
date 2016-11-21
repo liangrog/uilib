@@ -8,7 +8,7 @@ class NavBar extends Component {
 
     render = () => {
         let items = this.props.items.map(function(item) {
-            return <NavBarItem text={item.text} url={item.url} submenu={item.submenu} />
+            return <NavBarItem text={item.text} url={item.url} submenu={item.submenu} key={item.url} />
         })
         let className = this.props.subnav ? 'sub-nav' : 'main-nav'
 
