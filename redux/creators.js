@@ -48,7 +48,7 @@ export const fetchUri =
         },
         requestSubject = null,
         receiveSubject,
-        onFailure = (error) => logger.log(error, 'exception')
+        onFailure = (error) => logger.log(error, 'error')
     } = action
 
     if (requestSubject !== null && typeof receiveSubject != 'function') {

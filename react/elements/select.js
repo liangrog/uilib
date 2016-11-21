@@ -13,11 +13,13 @@ import { VISA_TYPES, SPONSOR_PERIODS } from '../../data/visas'
 export const SelectBase = (props) => {
     let selectOptions = props.options.map(
         (ele, index) => {
-            return <option key={index} value={ele.value}>{ele.label}</option>
+            let selected = props.value !== undefined && props.value == ele.value ? true : false
+            return <option key={index} value={ele.value} >{ele.label}</option>
         }
     )
 
-    if (props.value !== undefined) {
+     //uncontrolled form
+    if (props.value == undefined) {
         return (
             <div className={`select_wrap ${props.wrapperClassName}`}>
                 <select id={props.id}
@@ -32,13 +34,13 @@ export const SelectBase = (props) => {
                 </select>
             </div>
         )
+    //controlled form
     } else {
         return (
             <div className={`select_wrap ${props.wrapperClassName}`}>
                 <select id={props.id}
                         className={props.className}
                         name={props.name}
-                        defaultValue={props.defaultValue}
                         value={props.value}
                         onChange={props.onChange}
                         autoFocus={props.autoFocus}
@@ -141,6 +143,8 @@ export const DataSelect =
     } else {
         options = data
     }
+    
+    //add empty option
     options.unshift(optionBuilder(''))
 
     let local = Immutable.fromJS(props).set('options', options).toJSON()
