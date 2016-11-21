@@ -11,18 +11,16 @@ class NavSidebar extends Component {
     render = () => {
         let items = this.props.items.map(function(item) {
             return (
-                <li>
+                <li key={item.href}>
                     <Link to={item.href} activeClassName="active" onlyActiveOnIndex={true}>
                         {item.title}
                     </Link>
                 </li>
             )
         })
-        let progressComponent = this.props.progress || null
 
         return (
             <div className="left-col l_span_3">
-                { progressComponent }
                 <ul className="left-sub-nav">
                     { items }
                 </ul>
@@ -33,8 +31,7 @@ class NavSidebar extends Component {
 
 
 NavSidebar.propTypes = {
-    items: PropTypes.array,
-    progress: PropTypes.component
+    items: PropTypes.array
 }
 
 

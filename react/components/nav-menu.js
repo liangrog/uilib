@@ -8,7 +8,7 @@ class NavMenu extends Component {
 
     render = () => {
         return (
-            <nav class="nav-tab">
+            <nav className="nav-tab">
                 <NavBar items={this.props.items} subnav={false} />
             </nav>
         )
