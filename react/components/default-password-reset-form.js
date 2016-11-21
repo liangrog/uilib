@@ -47,15 +47,19 @@ const DefaultPasswordResetForm =
                             ( 
                                 <ul>
                                     <li>
-                                    <label className="required">Security Code</label>
-                                    <input type="text" className="input-text"
-                                        onChange={callback.setStateVal} name="code" id="code" required="" />
-                                </li>
-
+                                        <label className="required">Security Code</label>
+                                        <input type="text" className="input-text"
+                                            onChange={callback.setStateVal} name="code" id="code" required="" />
+                                    </li>
                                     <li>
                                         <label className="required">New password</label>
                                         <div className="password-container">
                                             <Password onChange={callback.setStateVal} password={callback.getStateVal('password')} /> 
+                                        </div>
+                                    </li>
+                                    <li className="l_half l_last">
+                                        <div className="buttons-set">
+                                            <button className="btn btn_primary btn_right btn_margin" type="submit" id="send">Reset</button>
                                         </div>
                                     </li>
                                 </ul>
