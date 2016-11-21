@@ -36,7 +36,7 @@ const formSectionCollapsableDecor = (Component) => {
             return (
                 <div className="clearfix">
                     <Component formData={props.formData}
-                            onUserInput={props.onUserInput}
+                            onChange={props.onChange}
                             />
                 </div>
             )
