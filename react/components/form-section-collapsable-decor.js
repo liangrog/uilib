@@ -8,7 +8,7 @@ const formSectionCollapsableDecor = (Component) => {
         if (props.collapsed) {
             // Display collapsed view
             return (
-                <div>
+                <div className="clearfix">
                     <div className="l_span_9">
                         {
                             props.collapsedDisplayAttrs.map(
@@ -35,7 +35,9 @@ const formSectionCollapsableDecor = (Component) => {
             // Display origin form view
             return (
                 <div className="clearfix">
-                    <Component formData={props.formData}
+                    <Component
+                            namePrefix={props.namePrefix}
+                            formData={props.formData}
                             onChange={props.onChange}
                             />
                 </div>
