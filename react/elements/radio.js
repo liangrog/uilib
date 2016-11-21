@@ -7,7 +7,7 @@ import { Label } from './label'
  * default radio
  */
 export const Radio = (props) =>
-    (<input type="radio" className={props.className} name={props.name} id={props.id} value={props.value} checked={props.checked} onChange={props.onChange} defaultChecked={props.defaultChecked} autoFocus={props.autoFocus} />)
+    (<input type="radio" className={"visuallyhidden " + props.className} name={props.name} id={props.id} value={props.value} checked={props.checked} onChange={props.onChange} defaultChecked={props.defaultChecked} autoFocus={props.autoFocus} />)
 
 Radio.propTypes = {
     id: React.PropTypes.string,
