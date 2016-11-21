@@ -23,6 +23,11 @@ class UiHelper {
             return name
         }
     }
+
+    // Make a random prefix
+    randomPrefix() {
+        return '' + Math.floor(Math.random() * 1000) + '_'
+    }
 }
 
 
