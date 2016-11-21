@@ -48,7 +48,7 @@ class FileUpload extends Component {
     }
 
     render = () => this.props.children(this)
-    render = () => {
+/*    render = () => {
         return (
             <div>
             <ul className="form-list">
@@ -61,7 +61,7 @@ class FileUpload extends Component {
                     <img className="profile-preview" src="../../assets/images/profile-preview.png" />
                 </div>
                 <div className="l_span_10 l_last">
-                    {/*<a className="" id="upload" onClick={() => this.refs.fileInput.click()}>{this.props.buttonLabel}</a>*/}
+                    {<a className="" id="upload" onClick={() => this.refs.fileInput.click()}>{this.props.buttonLabel}</a>}
                     <input className="btn btn_secondary btn_margin_small" type="file" name="files[]" ref="fileInput" onChange={this.upload}/>
                     <p>You can also drag and drop a picture from your computer.</p>
                     <div className="">
@@ -72,7 +72,7 @@ class FileUpload extends Component {
                 </div>
             </div>
         )
-    }
+    }*/
 }
 
 FileUpload.propTypes = {

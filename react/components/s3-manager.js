@@ -152,7 +152,7 @@ class S3Manager extends Component {
 }
 
 S3Manager.propTypes = {
-    bucketName: PropTypes.string.required
+    bucketName: PropTypes.string.isRequired
 }
 
 export default S3Manager
