@@ -39,7 +39,7 @@ export const fetchUri =
     action => {
 
     const {
-        subject,
+        subject = null,
         params = {
             method: 'GET',
             mod: 'cors',
