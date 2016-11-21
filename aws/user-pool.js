@@ -335,7 +335,7 @@ class UserPool {
      *
      * @param array attrList
      */
-    updateAttr(attrList) {
+    updateAttr(attrList, callback) {
         let attributeList = []
 
         for (let key in attrList) {
@@ -345,9 +345,15 @@ class UserPool {
         this.getCognitoUser().updateAttributes(attributeList, function(err, result) {
             if (err) {
                 logger.log(err)
-                return
+                if (typeof callback == 'function') {
+                    callback(err)
+                }
             }
+
             logger.log(result)
+            if (typeof callback == 'function') {
+                callback(null, result)
+            }
         })
     }
 
