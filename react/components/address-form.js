@@ -32,7 +32,7 @@ class AddressForm extends Component {
         return (
             <ul className="form-list">
                 <li className="l_half">
-                    <label className="required">Address Line 1</label>
+                    <label className="required">Address line 1</label>
                     <Input className="input-text"
                             type="text"
                             name={uiHelper.makeName(this.props.namePrefix, "address_line_1")}
@@ -42,7 +42,7 @@ class AddressForm extends Component {
                             />
                 </li>
                 <li className="l_half l_last">
-                    <label className="required">Address Line 2</label>
+                    <label className="required">Address line 2</label>
                     <Input className="input-text"
                             type="text"
                             name={uiHelper.makeName(this.props.namePrefix, "address_line_2")}
@@ -62,12 +62,10 @@ class AddressForm extends Component {
                 </li>
                 <li className="l_span_3">
                     <label className="required">State</label>
-                    <div className="select_wrap">
-                        { DataSelect('ausState')(stateEle) }
-                    </div>
+                    { DataSelect('ausState')(stateEle) }
                 </li>
                 <li className="l_span_3 l_last">
-                    <label className="required">Post Code</label>
+                    <label className="required">Post code</label>
                     <Input className="input-text"
                             type="number"
                             name={uiHelper.makeName(this.props.namePrefix, "postcode")}
@@ -77,11 +75,9 @@ class AddressForm extends Component {
                             maxLength={10}
                             />
                 </li>
-                <li className="l_half">
+                <li className="l_full">
                     <label className="required">Country</label>
-                    <div className="select_wrap">
-                        { DataSelect('country')(countryEle) }
-                    </div>
+                    { DataSelect('country')(countryEle) }
                 </li>
             </ul>
         )
