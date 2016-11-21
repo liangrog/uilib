@@ -63,7 +63,10 @@ const formSectionAddDecor = (Component) => {
                     )
                 }
 
-                <button type="button" className="btn btn-secondary" onClick={onAddMore}>
+                <div className="clearfix"></div>
+                <hr className="hr1" />
+
+                <button type="button" className="btn btn_secondary btn_small" onClick={onAddMore}>
                     Add Another
                 </button>
             </div>
