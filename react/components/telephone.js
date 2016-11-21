@@ -36,8 +36,10 @@ class Telephone extends Form {
             required: this.props.required,
             autoFocus: this.props.autoFocus,
             whiteList: ['+61', '+86'],
-            onChange: this.updatePhoneNumber
+            onChange: this.updatePhoneNumber,
+            value: this.props.phone_number ? this.props.phone_number.substring(0, 3) : ''
         }
+
 
         return (
             <div id={this.props.id} className={`clearfix ${this.props.className}`}>
@@ -49,6 +51,7 @@ class Telephone extends Form {
                     <Input className=""
                            type="tel"
                            name={this.phoneNumberName}
+                           value={this.props.phone_number ? this.props.phone_number.substring(4) : ''}
                            required={this.props.required}
                            onChange={this.updatePhoneNumber}
                     />
