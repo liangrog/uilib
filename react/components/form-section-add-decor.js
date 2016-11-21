@@ -21,13 +21,13 @@ const formSectionAddDecor = (Component) => {
             let dataList = Immutable.fromJS(props.dataList)
             dataList = dataList.push({})
             expandedIndex = dataList.count() - 1
-            props.onUserInput(dataList.toJSON())
+            props.onChange(dataList.toJSON())
         }
 
         let onEdit = (index, data) => {
             let dataList = Immutable.fromJS(props.dataList)
             dataList = dataList.set(index, data)
-            props.onUserInput(dataList.toJSON())
+            props.onChange(dataList.toJSON())
         }
 
         let onDelete = (index, e) => {
@@ -37,13 +37,13 @@ const formSectionAddDecor = (Component) => {
             if (index < expandedIndex) {
                 expandedIndex--
             }
-            props.onUserInput(dataList.toJSON())
+            props.onChange(dataList.toJSON())
         }
 
         let onExpand = (index, e) => {
             e.preventDefault()
             expandedIndex = index
-            props.onUserInput(props.dataList)
+            props.onChange(props.dataList)
         }
 
         return (
@@ -53,7 +53,7 @@ const formSectionAddDecor = (Component) => {
                         (data, i) => (
                             <DisplayComponent key={i}
                                     formData={data}
-                                    onUserInput={onEdit.bind(null, i)}
+                                    onChange={onEdit.bind(null, i)}
                                     onExpand={onExpand.bind(null, i)}
                                     onDelete={onDelete.bind(null, i)}
                                     collapsedDisplayAttrs={props.collapsedDisplayAttrs}
