@@ -1,7 +1,8 @@
 import React from 'react'
 import Immutable from 'immutable'
 
-import formSectionCollapsableDecor from './form-section-collapsable-decor'
+import formSectionCollapsableDecor from './form-section-collapsable-decor-new'
+import uiHelper from '../../utils/ui-helper'
 
 
 const formSectionAddDecor = (Component) => {
@@ -21,13 +22,12 @@ const formSectionAddDecor = (Component) => {
             let dataList = Immutable.fromJS(props.dataList)
             dataList = dataList.push({})
             expandedIndex = dataList.count() - 1
-            props.onChange(dataList.toJSON())
-        }
-
-        let onEdit = (index, data) => {
-            let dataList = Immutable.fromJS(props.dataList)
-            dataList = dataList.set(index, data)
-            props.onChange(dataList.toJSON())
+            props.onChange({
+                target: {
+                    name: props.namePrefix,
+                    value: dataList.toJSON()
+                }
+            })
         }
 
         let onDelete = (index, e) => {
@@ -37,13 +37,23 @@ const formSectionAddDecor = (Component) => {
             if (index < expandedIndex) {
                 expandedIndex--
             }
-            props.onChange(dataList.toJSON())
+            props.onChange({
+                target: {
+                    name: props.namePrefix,
+                    value: dataList.toJSON()
+                }
+            })
         }
 
         let onExpand = (index, e) => {
             e.preventDefault()
             expandedIndex = index
-            props.onChange(props.dataList)
+            props.onChange({
+                target: {
+                    name: props.namePrefix,
+                    value: props.dataList
+                }
+            })
         }
 
         return (
@@ -52,8 +62,10 @@ const formSectionAddDecor = (Component) => {
                     props.dataList.map(
                         (data, i) => (
                             <DisplayComponent key={i}
+                                    namePrefix={uiHelper.makeName(props.namePrefix, i)}
                                     formData={data}
-                                    onChange={onEdit.bind(null, i)}
+                                    objName={props.objName}
+                                    onChange={props.onChange}
                                     onExpand={onExpand.bind(null, i)}
                                     onDelete={onDelete.bind(null, i)}
                                     collapsedDisplayAttrs={props.collapsedDisplayAttrs}
@@ -67,7 +79,7 @@ const formSectionAddDecor = (Component) => {
                 <hr className="hr1" />
 
                 <button type="button" className="btn btn_secondary btn_small" onClick={onAddMore}>
-                    Add Another Child
+                    Add Another {props.objName}
                 </button>
             </div>
         )
