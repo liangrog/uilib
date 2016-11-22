@@ -8,17 +8,15 @@ const formSectionCollapsableDecor = (Component) => {
         if (props.collapsed) {
             // Display collapsed view
             return (
-                <div className="l_full new-child">
+                <div className="l_full collapsed-form-element">
                     <div className="clearfix">
-                        <div className="l_span_9">
+                        <div className="l_span_9" onClick={props.onExpand}>
                             {
                                 props.collapsedDisplayAttrs.map(
                                     (attr, i) => (
-                                        <a href="#" className="link" onClick={props.onExpand}>
-                                            <span key={i}>
-                                                {props.formData[attr]} &nbsp;
-                                            </span>
-                                        </a>
+                                        <span key={i}>
+                                            {props.formData[attr]} &nbsp;
+                                        </span>
                                     )
                                 )
                             }
@@ -37,7 +35,7 @@ const formSectionCollapsableDecor = (Component) => {
                 <div className="clearfix">
                     <Component
                             namePrefix={props.namePrefix}
-                            formData={props.formData}
+                            {...{[props.objName]: props.formData}}
                             onChange={props.onChange}
                             />
                 </div>
