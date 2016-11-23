@@ -1,7 +1,7 @@
 import React from 'react'
 import Immutable from 'immutable'
 
-import formSectionCollapsableDecor from './form-section-collapsable-decor-new'
+import formSectionCollapsableDecor from './form-section-collapsable-decor'
 import uiHelper from '../../utils/ui-helper'
 
 
