@@ -13,7 +13,7 @@ class NavSidebar extends Component {
             let className = item.disabled ? "disabled" : null
             return (
                 <li key={i}>
-                    <Link to={item.href} className={className} classactiveClassName="active" onlyActiveOnIndex={true}>
+                    <Link to={item.href} className={className} activeClassName="active" onlyActiveOnIndex={true}>
                         {item.title}
                     </Link>
                 </li>
