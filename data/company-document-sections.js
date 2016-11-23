@@ -26,7 +26,7 @@ const COMPANY_DOCUMENT_SECTIONS = [
         required: true
     },
     {
-        name: 'Lease Agreement',
+        name: 'Lease Agreement / Title Deed',
         description: '',
         tag: ENV_VARS.DOCUMENT_TAG.company_document + '.LeaseAgreement',
         required: true
