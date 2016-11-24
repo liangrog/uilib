@@ -14,17 +14,16 @@ class AddressForm extends Component {
     render = () => {
         let stateEle = {
             name: uiHelper.makeName(this.props.namePrefix, "state"),
-            defaultValue: uiHelper.valOr(this.props.address.state),
+            value: uiHelper.valOr(this.props.address.state),
             required: this.props.address.required,
-            whiteList: ['+61', '+86'],
-            onChange: this.props.onUserInput
+            onChange: this.props.onChange
         }
 
         let countryEle = {
             name: uiHelper.makeName(this.props.namePrefix, "country"),
-            defaultValue: uiHelper.valOr(this.props.address.state),
+            value: uiHelper.valOr(this.props.address.country),
             required: this.props.address.required,
-            onChange: this.props.onUserInput
+            onChange: this.props.onChange
         }
 
 
@@ -36,8 +35,8 @@ class AddressForm extends Component {
                     <Input className="input-text"
                             type="text"
                             name={uiHelper.makeName(this.props.namePrefix, "address_line_1")}
-                            defaultValue={uiHelper.valOr(this.props.address.address_line_1)}
-                            onChange={this.props.onUserInput}
+                            value={uiHelper.valOr(this.props.address.address_line_1)}
+                            onChange={this.props.onChange}
                             required={this.props.address.required}
                             />
                 </li>
@@ -46,8 +45,8 @@ class AddressForm extends Component {
                     <Input className="input-text"
                             type="text"
                             name={uiHelper.makeName(this.props.namePrefix, "address_line_2")}
-                            defaultValue={uiHelper.valOr(this.props.address.address_line_2)}
-                            onChange={this.props.onUserInput}
+                            value={uiHelper.valOr(this.props.address.address_line_2)}
+                            onChange={this.props.onChange}
                             />
                 </li>
                 <li className="l_half ">
@@ -55,8 +54,8 @@ class AddressForm extends Component {
                     <Input className="input-text"
                             type="text"
                             name={uiHelper.makeName(this.props.namePrefix, "suburb")}
-                            defaultValue={uiHelper.valOr(this.props.address.suburb)}
-                            onChange={this.props.onUserInput}
+                            value={uiHelper.valOr(this.props.address.suburb)}
+                            onChange={this.props.onChange}
                             required={this.props.address.required}
                             />
                 </li>
@@ -69,8 +68,8 @@ class AddressForm extends Component {
                     <Input className="input-text"
                             type="number"
                             name={uiHelper.makeName(this.props.namePrefix, "postcode")}
-                            defaultValue={uiHelper.valOr(this.props.address.postcode)}
-                            onChange={this.props.onUserInput}
+                            value={uiHelper.valOr(this.props.address.postcode)}
+                            onChange={this.props.onChange}
                             required={this.props.address.required}
                             maxLength={10}
                             />

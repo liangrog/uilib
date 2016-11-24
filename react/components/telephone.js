@@ -1,11 +1,11 @@
 import React from 'react'
 
-import Form from './form'
 import { Input } from '../elements/input'
 import { DataSelect } from '../elements/select'
 import uiHelper from '../../utils/ui-helper'
 
-class Telephone extends Form {
+
+class Telephone extends React.Component {
 
     constructor(props) {
         super(props)
@@ -13,18 +13,20 @@ class Telephone extends Form {
         let index = props.index != undefined ?  props.index : ''
         this.countryCodeName = `c_code_${index}`
         this.phoneNumberName = `p_number_${index}`
+        this.state = {}
     }
 
     updatePhoneNumber = (e) => {
-        // Update local tel params 
-        this.setState({[e.target.name]: e.target.value})
+        // Update local tel params
+        this.state[e.target.name]= e.target.value
+        this.setState({})
 
         // Fire onChange
         this.props.onChange(
             {
                 target: {
                     name: this.props.name,
-                    value: uiHelper.valOr(this.state[this.countryCodeName]) + uiHelper(this.state[this.phoneNumberName])
+                    value: uiHelper.valOr(this.state[this.countryCodeName]) + uiHelper.valOr(this.state[this.phoneNumberName])
                 }
             }
         )
@@ -51,7 +53,7 @@ class Telephone extends Form {
                     <Input className=""
                            type="tel"
                            name={this.phoneNumberName}
-                           value={this.props.phone_number ? this.props.phone_number.substring(4) : ''}
+                           value={this.props.phone_number ? this.props.phone_number.substring(3) : ''}
                            required={this.props.required}
                            onChange={this.updatePhoneNumber}
                     />
