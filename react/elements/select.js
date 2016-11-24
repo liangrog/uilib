@@ -132,7 +132,7 @@ GenderSelect.defaultProps = {
 /**
  * select list for data set
  */
-export const DataSelect = 
+export const DataSelect =
     type =>
     props => {
     let data = getDataByType(type)
@@ -143,7 +143,7 @@ export const DataSelect =
     } else {
         options = data
     }
-    
+
     //add empty option
     options.unshift(optionBuilder(''))
 
