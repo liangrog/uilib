@@ -35,7 +35,14 @@ export const RadioGroup = (props) => (
     <ul className={props.className} name={props.name} id={props.id}>
         {
             props.li.map((ele, index) => {
-                return <li key={index}>
+                var liClassName = ''
+                if (props.layout === 'horizontal') {
+                    liClassName += ' l_half'
+                    if (index % 2) {
+                        liClassName += ' l_last'
+                    }
+                }
+                return <li key={index} className={liClassName}>
                            <Radio {...ele.userInput} />
                            <Label {...ele.label} />
                        </li>
@@ -53,13 +60,15 @@ RadioGroup.propTypes = {
             label: React.PropTypes.object.isRequired,
             userInput: React.PropTypes.object.isRequired
         }).isRequired
-    ).isRequired
+    ).isRequired,
+    layout: React.PropTypes.oneOf(['vertical', 'horizontal']),
 }
 
 RadioGroup.defaultProps = {
     id: '',
     className: '',
-    name: ''
+    name: '',
+    layout: 'vertical'
 }
 
 /**
