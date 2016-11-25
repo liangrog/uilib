@@ -5,6 +5,7 @@ import fieldValidationDecor from '../components/field-validation-decor'
 import AUSTRALIA_STATES from '../../data/australia-states'
 import { COUNTRIES, COUNTRY_DIAL_CODES } from '../../data/countries'
 import { VISA_TYPES, SPONSOR_PERIODS } from '../../data/visas'
+import ENTITY_TYPES from '../../data/entity-types'
 
 
 /**
@@ -169,6 +170,9 @@ const getDataByType = type => {
             break
         case 'sponsorPeriod':
             data = SPONSOR_PERIODS
+            break
+        case 'entityType':
+            data = ENTITY_TYPES.map(optionBuilder)
             break
     }
     return data
