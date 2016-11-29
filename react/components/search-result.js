@@ -1,6 +1,7 @@
 import React from 'react'
 import Immutable from 'immutable'
 
+import ButtonDropdown from './button-dropdown'
 import Pagination from './pagination'
 
 
@@ -141,9 +142,31 @@ class SearchResult extends React.Component {
         )
     }
 
+    performAction = (func, e) => {
+        e.preventDefault()
+        let checked = this.checkboxes.filter(cb => cb.checked).map(cb => cb.value)
+        func(checked)
+    }
+
     render = () => {
+        // Bind the onClick func for each button
+        let actionButtons = this.props.actionButtons.map(
+            b => (
+                {
+                    ...b,
+                    onClick: this.performAction.bind(null, b.onClick)
+                }
+            )
+        )
+
         return (
             <div>
+                <div className="">
+                    <ButtonDropdown
+                            buttons={actionButtons}
+                    />
+                </div>
+
                 <table className="stacktable">
                     <thead>
                         <tr>
@@ -185,6 +208,10 @@ SearchResult.propTypes = {
         name: React.PropTypes.string.isRequired,
         valueAttr:  React.PropTypes.string,
     }),
+    actionButtons: React.PropTypes.arrayOf(React.PropTypes.shape({
+        label: React.PropTypes.string.isRequired,
+        onClick: React.PropTypes.func.isRequired,
+    })),
 }
 
 SearchResult.defaultProps = {
