@@ -15,6 +15,7 @@ class SearchResult extends React.Component {
             sorting: props.defaultSorting
         }
         this.checkboxes = []
+        this.radios = []
     }
 
     displayingResult = () => {
@@ -105,6 +106,13 @@ class SearchResult extends React.Component {
             )
         }
 
+        if (this.props.radioCol) {
+            cols.unshift(
+                <th key="radioCol">
+                </th>
+            )
+        }
+
         return cols
     }
 
@@ -123,7 +131,19 @@ class SearchResult extends React.Component {
                     <input type="checkbox"
                             ref={checkbox => {this.checkboxes.push(checkbox)}}
                             name={this.props.checkboxCol.name}
-                            value={obj[this.props.checkboxCol.value]}
+                            value={obj[this.props.checkboxCol.valueAttr]}
+                    />
+                </td>
+            )
+        }
+
+        if (this.props.radioCol) {
+            row.unshift(
+                <td key="radioCol">
+                    <input type="radio"
+                            ref={radio => {this.radios.push(radio)}}
+                            name={this.props.radioCol.name}
+                            value={obj[this.props.radioCol.valueAttr]}
                     />
                 </td>
             )
@@ -144,13 +164,23 @@ class SearchResult extends React.Component {
 
     performAction = (func, e) => {
         e.preventDefault()
-        let checked = this.checkboxes.filter(cb => cb.checked).map(cb => cb.value)
+
+        let checked
+        // Get checked radio value or checkbox values
+        if (this.props.radioCol) {
+            let checkedRadio = this.radios.find(ro => ro.checked)
+            checked = checkedRadio ? checkedRadio.value : undefined
+        } else {
+            let checkedCheckboxes = this.checkboxes.filter(cb => cb.checked)
+            checked = checkedCheckboxes.map(cb => cb.value)
+        }
+
         func(checked)
     }
 
-    render = () => {
+    actionButtons = () => {
         // Bind the onClick func for each button
-        let actionButtons = this.props.actionButtons.map(
+        return this.props.actionButtons.map(
             b => (
                 {
                     ...b,
@@ -158,12 +188,14 @@ class SearchResult extends React.Component {
                 }
             )
         )
+    }
 
+    render = () => {
         return (
             <div>
                 <div className="">
                     <ButtonDropdown
-                            buttons={actionButtons}
+                            buttons={this.actionButtons()}
                     />
                 </div>
 
@@ -208,6 +240,10 @@ SearchResult.propTypes = {
         name: React.PropTypes.string.isRequired,
         valueAttr:  React.PropTypes.string,
     }),
+    radioCol: React.PropTypes.shape({
+        name: React.PropTypes.string.isRequired,
+        valueAttr:  React.PropTypes.string,
+    }),
     actionButtons: React.PropTypes.arrayOf(React.PropTypes.shape({
         label: React.PropTypes.string.isRequired,
         onClick: React.PropTypes.func.isRequired,
@@ -218,7 +254,8 @@ SearchResult.defaultProps = {
     data: [],
     cols: [],
     defaultPrePage: 10,
-    defaultSorting: {}
+    defaultSorting: {},
+    actionButtons: []
 }
 
 export default SearchResult
