@@ -38,14 +38,18 @@ class ButtonDropdown extends React.Component {
     }
 
     render = () => {
-        return (
-            <div style={{position: 'relative'}} className="text-right">
-                <button className="btn btn-primary" onClick={this.toggleButtons}>
-                    Actions
-                </button>
-                {this.buttons()}
-            </div>
-        )
+        if (this.props.buttons.length > 0) {
+            return (
+                <div style={{position: 'relative'}} className="text-right">
+                    <button className="btn btn-primary" onClick={this.toggleButtons}>
+                        Actions
+                    </button>
+                    {this.buttons()}
+                </div>
+            )
+        } else {
+            return null
+        }
     }
 }
 

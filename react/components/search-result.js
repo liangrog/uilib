@@ -15,6 +15,7 @@ class SearchResult extends React.Component {
             sorting: props.defaultSorting
         }
         this.checkboxes = []
+        this.radios = []
     }
 
     displayingResult = () => {
@@ -105,6 +106,13 @@ class SearchResult extends React.Component {
             )
         }
 
+        if (this.props.radioCol) {
+            cols.unshift(
+                <th key="radioCol">
+                </th>
+            )
+        }
+
         return cols
     }
 
@@ -123,7 +131,19 @@ class SearchResult extends React.Component {
                     <input type="checkbox"
                             ref={checkbox => {this.checkboxes.push(checkbox)}}
                             name={this.props.checkboxCol.name}
-                            value={obj[this.props.checkboxCol.value]}
+                            value={obj[this.props.checkboxCol.valueAttr]}
+                    />
+                </td>
+            )
+        }
+
+        if (this.props.radioCol) {
+            row.unshift(
+                <td key="radioCol">
+                    <input type="radio"
+                            ref={radio => {this.radios.push(radio)}}
+                            name={this.props.radioCol.name}
+                            value={obj[this.props.radioCol.valueAttr]}
                     />
                 </td>
             )
@@ -132,25 +152,46 @@ class SearchResult extends React.Component {
         return row
     }
 
-    rows = () => {
-        return this.displayingResult().map(
-            (obj, i) => (
-                <tr key={i}>
-                    {this.row(obj)}
+    rows = (colNum) => {
+        let results = this.displayingResult()
+        if (results.length > 0) {
+            return results.map(
+                (obj, i) => (
+                    <tr key={i}>
+                        {this.row(obj)}
+                    </tr>
+                )
+            )
+        } else {
+            return (
+                <tr>
+                    <td className="text-center" colSpan={colNum}>
+                        No results found.
+                    </td>
                 </tr>
             )
-        )
+        }
     }
 
     performAction = (func, e) => {
         e.preventDefault()
-        let checked = this.checkboxes.filter(cb => cb.checked).map(cb => cb.value)
+
+        let checked
+        // Get checked radio value or checkbox values
+        if (this.props.radioCol) {
+            let checkedRadio = this.radios.find(ro => ro.checked)
+            checked = checkedRadio ? checkedRadio.value : undefined
+        } else {
+            let checkedCheckboxes = this.checkboxes.filter(cb => cb.checked)
+            checked = checkedCheckboxes.map(cb => cb.value)
+        }
+
         func(checked)
     }
 
-    render = () => {
+    actionButtons = () => {
         // Bind the onClick func for each button
-        let actionButtons = this.props.actionButtons.map(
+        return this.props.actionButtons.map(
             b => (
                 {
                     ...b,
@@ -158,24 +199,30 @@ class SearchResult extends React.Component {
                 }
             )
         )
+    }
+
+    render = () => {
+        let buttons = this.actionButtons()
+        let headers = this.headers()
+        let rows = this.rows(headers.length)
 
         return (
             <div>
                 <div className="">
                     <ButtonDropdown
-                            buttons={actionButtons}
+                            buttons={buttons}
                     />
                 </div>
 
                 <table className="stacktable">
                     <thead>
                         <tr>
-                            {this.headers()}
+                            {headers}
                         </tr>
                     </thead>
 
                     <tbody>
-                        {this.rows()}
+                        {rows}
                     </tbody>
                 </table>
 
@@ -208,6 +255,10 @@ SearchResult.propTypes = {
         name: React.PropTypes.string.isRequired,
         valueAttr:  React.PropTypes.string,
     }),
+    radioCol: React.PropTypes.shape({
+        name: React.PropTypes.string.isRequired,
+        valueAttr:  React.PropTypes.string,
+    }),
     actionButtons: React.PropTypes.arrayOf(React.PropTypes.shape({
         label: React.PropTypes.string.isRequired,
         onClick: React.PropTypes.func.isRequired,
@@ -218,7 +269,8 @@ SearchResult.defaultProps = {
     data: [],
     cols: [],
     defaultPrePage: 10,
-    defaultSorting: {}
+    defaultSorting: {},
+    actionButtons: []
 }
 
 export default SearchResult
