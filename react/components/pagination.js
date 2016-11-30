@@ -33,6 +33,10 @@ class Pagination extends React.Component {
     }
 
     render = () => {
+        if (this.props.maxPage <= 0) {
+            return null
+        }
+
         return (
             <div className="product_listing_sort listing_bottom">
                 <div className="product_listing_sort_field">

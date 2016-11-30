@@ -152,14 +152,25 @@ class SearchResult extends React.Component {
         return row
     }
 
-    rows = () => {
-        return this.displayingResult().map(
-            (obj, i) => (
-                <tr key={i}>
-                    {this.row(obj)}
+    rows = (colNum) => {
+        let results = this.displayingResult()
+        if (results.length > 0) {
+            return results.map(
+                (obj, i) => (
+                    <tr key={i}>
+                        {this.row(obj)}
+                    </tr>
+                )
+            )
+        } else {
+            return (
+                <tr>
+                    <td className="text-center" colSpan={colNum}>
+                        No results found.
+                    </td>
                 </tr>
             )
-        )
+        }
     }
 
     performAction = (func, e) => {
@@ -191,23 +202,27 @@ class SearchResult extends React.Component {
     }
 
     render = () => {
+        let buttons = this.actionButtons()
+        let headers = this.headers()
+        let rows = this.rows(headers.length)
+
         return (
             <div>
                 <div className="">
                     <ButtonDropdown
-                            buttons={this.actionButtons()}
+                            buttons={buttons}
                     />
                 </div>
 
                 <table className="stacktable">
                     <thead>
                         <tr>
-                            {this.headers()}
+                            {headers}
                         </tr>
                     </thead>
 
                     <tbody>
-                        {this.rows()}
+                        {rows}
                     </tbody>
                 </table>
 
