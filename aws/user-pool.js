@@ -65,7 +65,7 @@ class UserPool {
 
         return new CognitoIdentityServiceProvider.CognitoUserAttribute(attr)
     }
- 
+
     /**
      * validate user registration form
      * data, make sure mandatory fields
@@ -115,8 +115,8 @@ class UserPool {
         //system generated username
         formData['username'] = this.randomUsername(24)
 
-        let invalid = this.validateRegistyForm(formData) 
-    
+        let invalid = this.validateRegistyForm(formData)
+
         if (invalid instanceof Error) {
             logger.log(invalid)
             if (typeof onFailure == 'function') {
@@ -125,14 +125,14 @@ class UserPool {
         }
 
         let attrList = []
-        
+
         let newFormData = this.filterRegistryForm(formData)
         for (let key in newFormData) {
             attrList.push(this.newCognitoAttr(key, newFormData[key]))
         }
 
         if (!formData.locale) {
-            //default to Australia 
+            //default to Australia
             attrList.push(this.newCognitoAttr('locale', 'en_AU'))
         }
 
@@ -145,32 +145,32 @@ class UserPool {
             }
             logger.log(result)
             this.cognitoUser = result.user
-            //Enable MFA if user opt-in            
+            //Enable MFA if user opt-in
             /*if (formData.enable_mfa || formData.enable_mfa == 'true') {
                 this.enableMFA(onFailure)
             }*/
 
             if (typeof onSuccess == 'function') {
                return onSuccess()
-            }                 
+            }
         }
 
         this.userPool.signUp(
             formData.username,
             formData.password,
-            attrList, 
-            null, 
+            attrList,
+            null,
             callback
         )
     }
 
     /**
-     * Confirming a registered, unauthenticated user 
+     * Confirming a registered, unauthenticated user
      * using a confirmation code received via SMS
      */
     registerConfirmByCode(username, code, onFailure, onSuccess) {
         this.getCognitoUser(username).confirmRegistration(
-            code, 
+            code,
             true,
             function(err, result) {
                 if (err) {
@@ -180,7 +180,7 @@ class UserPool {
                     }
                 }
                 logger.log(result)
-                
+
                 if (typeof onSuccess == 'function') {
                     return onSuccess()
                 }
@@ -189,7 +189,7 @@ class UserPool {
     }
 
     /**
-     * Resending a confirmation code via SMS for 
+     * Resending a confirmation code via SMS for
      * confirming registration for a unauthenticated user
      */
     resendConfirmCode(username, onFailure) {
@@ -208,7 +208,7 @@ class UserPool {
     }
 
     /**
-     * Authenticating a user and establishing a user 
+     * Authenticating a user and establishing a user
      * session with the Amazon Cognito Identity service
      */
     authenticate(username, password, conFailure, conSuccess) {
@@ -241,7 +241,7 @@ class UserPool {
         }
 
         this.getCognitoUser(username).authenticateUser(
-            authenticationDetails, 
+            authenticationDetails,
             {onSuccess, onFailure, mfaRequired: function() {}}
         )
     }
@@ -257,20 +257,20 @@ class UserPool {
                 logger.log(err)
                 callback(err)
             }
-            
+
             let found = {}
             //find specific attribute value
             if (result && Array.isArray(result)) {
                 if (attr !== null) {
-                    result = result.find((attr_elm) => attr_elm.getName() == attr) 
-                    found[result.getName()] = result.getValue()         
+                    result = result.find((attr_elm) => attr_elm.getName() == attr)
+                    found[result.getName()] = result.getValue()
                 } else {
                     result.forEach((ele, index) => {
                         found[ele.getName()] = ele.getValue()
                     })
                 }
             }
-                   
+
             callback(null, found)
         }
 
@@ -339,9 +339,9 @@ class UserPool {
         let attributeList = []
 
         for (let key in attrList) {
-            attributeList.push(this.newCognitoAttr(key, attrList.key))
+            attributeList.push(this.newCognitoAttr(key, attrList[key]))
         }
-
+        
         this.getCognitoUser().updateAttributes(attributeList, function(err, result) {
             if (err) {
                 logger.log(err)
@@ -358,7 +358,7 @@ class UserPool {
     }
 
     /**
-     * Enabling MFA for a user on a pool that has 
+     * Enabling MFA for a user on a pool that has
      * an optional MFA setting for an authenticated user
      */
     enableMFA(onFailure) {
@@ -374,7 +374,7 @@ class UserPool {
     }
 
     /**
-     * Disabling MFA for a user on a pool that has 
+     * Disabling MFA for a user on a pool that has
      * an optional MFA setting for an authenticated user
      */
     disableMFA() {
@@ -395,8 +395,8 @@ class UserPool {
      */
     changePassword(oldPassword, newPassword) {
         this.getCognitoUser().changePassword(
-            oldPassword, 
-            newPassword, 
+            oldPassword,
+            newPassword,
             function(err, result) {
                 if (err) {
                     logger.log(err)
@@ -424,7 +424,7 @@ class UserPool {
                     return conFailure(err)
                 }
             },
-            inputVerificationCode: false 
+            inputVerificationCode: false
         })
     }
 
@@ -459,7 +459,7 @@ class UserPool {
     }
 
     /**
-     * Global signout for an authenticated 
+     * Global signout for an authenticated
      * user(invalidates all issued tokens)
      */
     globalSignout() {
@@ -500,7 +500,7 @@ class UserPool {
             if (typeof onFailure == 'function') {
                 return onFailure(new Error('No active user found'))
             }
-        }      
+        }
     }
 
     /**
