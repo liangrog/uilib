@@ -24,8 +24,9 @@ class CurrentUser extends Component {
     displayMenu = () => {
         if (this.props.children && this.state.menuOpen) {
             return (
-                <div style={{position: 'relative', overflow: 'visible'}}>
-                    <div style={{position: 'absolute', right: 0, background: 'white', padding: '10px 15px', width: '350px', zIndex: 9999}}>
+                <div className="user_account_dropdown">
+                    <div className="arrow-up"></div>
+                    <div className="inner">
                         {this.props.children}
                     </div>
                 </div>
