@@ -7,7 +7,7 @@ class CurrentUser extends Component {
         super(props)
         this.state = {
             profile_photo: 'http://www.asianplasticsurgeryguide.com/images/blog/asianman.jpg',
-            username: 'Anonymous'
+            menuOpen: false
         }
     }
 
@@ -15,17 +15,39 @@ class CurrentUser extends Component {
         this.props.fetchProfile()
     }
 
+    toggleMenu = (e) => {
+        e.preventDefault()
+        let menuOpen = !this.state.menuOpen
+        this.setState({menuOpen})
+    }
+
+    displayMenu = () => {
+        if (this.props.children && this.state.menuOpen) {
+            return (
+                <div style={{position: 'relative', overflow: 'visible'}}>
+                    <div style={{position: 'absolute', right: 0, background: 'white', padding: '10px 15px', width: '350px', zIndex: 9999}}>
+                        {this.props.children}
+                    </div>
+                </div>
+            )
+        } else {
+            return null
+        }
+    }
+
     render = () => {
         return (
             <div className="user_account l_span_2 l_last">
-                <a href="">
-                <img className="user-photo" alt="" src={this.state.profile_photo} />
+                <a className="user_account_name" href="#" onClick={this.toggleMenu}>
+                    <img className="user-photo" alt="" src={this.state.profile_photo} />
                     <span className="user-name">{this.props.profile.given_name}</span>
                     <span className="i_arrow"></span>
                 </a>
+
+                {this.displayMenu()}
             </div>
         )
-    }    
+    }
 }
 
 const mapStateToProps = (store) => {
