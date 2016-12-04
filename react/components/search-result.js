@@ -18,6 +18,11 @@ class SearchResult extends React.Component {
         this.radios = []
     }
 
+    componentWillUpdate = () => {
+        this.checkboxes = []
+        this.radios = []
+    }
+
     displayingResult = () => {
         let data = Immutable.fromJS(this.props.data)
 
@@ -125,11 +130,14 @@ class SearchResult extends React.Component {
             )
         )
 
+        // Checkbox
         if (this.props.checkboxCol) {
             row.unshift(
                 <td key="checkboxCol">
                     <input type="checkbox"
-                            ref={checkbox => {this.checkboxes.push(checkbox)}}
+                            ref={checkbox => {
+                                if (checkbox) this.checkboxes.push(checkbox)
+                            }}
                             name={this.props.checkboxCol.name}
                             value={obj[this.props.checkboxCol.valueAttr]}
                     />
@@ -137,11 +145,14 @@ class SearchResult extends React.Component {
             )
         }
 
+        // Radio
         if (this.props.radioCol) {
             row.unshift(
                 <td key="radioCol">
                     <input type="radio"
-                            ref={radio => {this.radios.push(radio)}}
+                            ref={radio => {
+                                if (radio) this.radios.push(radio)
+                            }}
                             name={this.props.radioCol.name}
                             value={obj[this.props.radioCol.valueAttr]}
                     />
