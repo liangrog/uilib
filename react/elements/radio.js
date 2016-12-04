@@ -94,20 +94,16 @@ GenderRadioGroup.propTypes = {
     id: React.PropTypes.string,
     className: React.PropTypes.string,
     name: React.PropTypes.string.isRequired,
-    male: React.PropTypes.objectOf(
-        React.PropTypes.shape({
-            checked: React.PropTypes.bool,
-            onChange: React.PropTypes.func,
-            className: React.PropTypes.string
-        })
-    ),
-    female: React.PropTypes.objectOf(
-        React.PropTypes.shape({
-            checked: React.PropTypes.bool,
-            onChange: React.PropTypes.func,
-            className: React.PropTypes.string
-        })
-    ),
+    male: React.PropTypes.shape({
+        checked: React.PropTypes.bool,
+        onChange: React.PropTypes.func,
+        className: React.PropTypes.string
+    }),
+    female: React.PropTypes.shape({
+        checked: React.PropTypes.bool,
+        onChange: React.PropTypes.func,
+        className: React.PropTypes.string
+    }),
     index: React.PropTypes.number
 }
 
@@ -140,20 +136,16 @@ YesnoRadioGroup.propTypes = {
     id: React.PropTypes.string,
     className: React.PropTypes.string,
     name: React.PropTypes.string.isRequired,
-    male: React.PropTypes.objectOf(
-        React.PropTypes.shape({
-            checked: React.PropTypes.bool,
-            onChange: React.PropTypes.func,
-            className: React.PropTypes.string
-        })
-    ),
-    female: React.PropTypes.objectOf(
-        React.PropTypes.shape({
-            checked: React.PropTypes.bool,
-            onChange: React.PropTypes.func,
-            className: React.PropTypes.string
-        })
-    ),
+    male: React.PropTypes.shape({
+        checked: React.PropTypes.bool,
+        onChange: React.PropTypes.func,
+        className: React.PropTypes.string
+    }),
+    female: React.PropTypes.shape({
+        checked: React.PropTypes.bool,
+        onChange: React.PropTypes.func,
+        className: React.PropTypes.string
+    }),
     index: React.PropTypes.number
 }
 
