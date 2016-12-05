@@ -38,8 +38,10 @@ class Telephone extends React.Component {
             required: this.props.required,
             autoFocus: this.props.autoFocus,
             whiteList: ['+61', '+86'],
-            onChange: this.updatePhoneNumber,
-            value: this.props.phone_number ? this.props.phone_number.substring(0, 3) : ''
+            onChange: this.updatePhoneNumber
+        }
+        if (this.props.phone_number !== undefined) {
+            dialCodeEle.value = this.props.phone_number ? this.props.phone_number.substring(0, 3) : ''
         }
 
 
@@ -50,13 +52,23 @@ class Telephone extends React.Component {
                 </div>
 
                 <div className="l_span_8 l_last">
-                    <Input className=""
-                           type="tel"
-                           name={this.phoneNumberName}
-                           value={this.props.phone_number ? this.props.phone_number.substring(3) : ''}
-                           required={this.props.required}
-                           onChange={this.updatePhoneNumber}
-                    />
+                    {
+                        (this.props.phone_number === undefined) ?
+                            <Input className=""
+                                   type="tel"
+                                   name={this.phoneNumberName}
+                                   required={this.props.required}
+                                   onChange={this.updatePhoneNumber}
+                            />
+                        :
+                            <Input className=""
+                                   type="tel"
+                                   name={this.phoneNumberName}
+                                   value={this.props.phone_number ? this.props.phone_number.substring(3) : ''}
+                                   required={this.props.required}
+                                   onChange={this.updatePhoneNumber}
+                            />
+                    }
                 </div>
             </div>
         )
