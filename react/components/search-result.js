@@ -18,7 +18,12 @@ class SearchResult extends React.Component {
         this.radios = []
     }
 
-    displayingResult = () => {
+    componentWillUpdate = () => {
+        this.checkboxes = []
+        this.radios = []
+    }
+
+    dataToDisplay = () => {
         let data = Immutable.fromJS(this.props.data)
 
         // Sorting
@@ -125,11 +130,14 @@ class SearchResult extends React.Component {
             )
         )
 
+        // Checkbox
         if (this.props.checkboxCol) {
             row.unshift(
                 <td key="checkboxCol">
                     <input type="checkbox"
-                            ref={checkbox => {this.checkboxes.push(checkbox)}}
+                            ref={checkbox => {
+                                if (checkbox) this.checkboxes.push(checkbox)
+                            }}
                             name={this.props.checkboxCol.name}
                             value={obj[this.props.checkboxCol.valueAttr]}
                     />
@@ -137,11 +145,14 @@ class SearchResult extends React.Component {
             )
         }
 
+        // Radio
         if (this.props.radioCol) {
             row.unshift(
                 <td key="radioCol">
                     <input type="radio"
-                            ref={radio => {this.radios.push(radio)}}
+                            ref={radio => {
+                                if (radio) this.radios.push(radio)
+                            }}
                             name={this.props.radioCol.name}
                             value={obj[this.props.radioCol.valueAttr]}
                     />
@@ -153,7 +164,7 @@ class SearchResult extends React.Component {
     }
 
     rows = (colNum) => {
-        let results = this.displayingResult()
+        let results = this.dataToDisplay()
         if (results.length > 0) {
             return results.map(
                 (obj, i) => (
@@ -173,29 +184,32 @@ class SearchResult extends React.Component {
         }
     }
 
-    performAction = (func, e) => {
-        e.preventDefault()
+    buttonAction = (actionButton) => {
+        return (e) => {
+            e.preventDefault()
 
-        let checked
-        // Get checked radio value or checkbox values
-        if (this.props.radioCol) {
-            let checkedRadio = this.radios.find(ro => ro.checked)
-            checked = checkedRadio ? checkedRadio.value : undefined
-        } else {
-            let checkedCheckboxes = this.checkboxes.filter(cb => cb.checked)
-            checked = checkedCheckboxes.map(cb => cb.value)
+            let checked
+            switch (actionButton.dataToUse) {
+                case 'radio':
+                    let checkedRadio = this.radios.find(ro => ro.checked)
+                    checked = checkedRadio ? checkedRadio.value : undefined
+                    break;
+                case 'checkbox':
+                default:
+                    let checkedCheckboxes = this.checkboxes.filter(cb => cb.checked)
+                    checked = checkedCheckboxes.map(cb => cb.value)
+            }
+            actionButton.onClick(checked)
         }
-
-        func(checked)
     }
 
     actionButtons = () => {
-        // Bind the onClick func for each button
+        // Wrap onClick func for each button
         return this.props.actionButtons.map(
             b => (
                 {
                     ...b,
-                    onClick: this.performAction.bind(null, b.onClick)
+                    onClick: this.buttonAction(b)
                 }
             )
         )
@@ -262,6 +276,7 @@ SearchResult.propTypes = {
     actionButtons: React.PropTypes.arrayOf(React.PropTypes.shape({
         label: React.PropTypes.string.isRequired,
         onClick: React.PropTypes.func.isRequired,
+        dataToUse: React.PropTypes.oneOf(['radio', 'checkbox'])
     })),
 }
 
