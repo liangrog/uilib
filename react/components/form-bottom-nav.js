@@ -21,7 +21,7 @@ class FormBottomNav extends Form {
                 </div>
                 <div className="l_span_6 l_last">
                     { this.props.nextEnabled && <button className="btn btn-primary btn-right btn-icon btn-icon-arrow btn_next btn_right btn_has_arrow" onClick={this.next} type="submit" name="next" id="next">Next</button>}
-                    <button className="btn btn_secondary btn_right" type="submit" name="save" id="save" onClick={this.props.save}>Save</button>
+                    <button className="btn btn_secondary btn_right" type="submit" name="save" id="save" onClick={this.props.save}>{this.props.submitButtonText}</button>
                 </div>
             </div>
         )
@@ -37,7 +37,8 @@ FormBottomNav.propTypes = {
 FormBottomNav.defaultProps = {
     nextEnabled: true,
     next: '/',
-    save: () => true
+    save: () => true,
+    submitButtonText: 'Save'
 }
 
 
