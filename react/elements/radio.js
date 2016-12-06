@@ -128,7 +128,6 @@ export const YesnoRadioGroup = props => {
             userInput: {name: props.name, id: 'yesno_no' + index, value: 'no', ...props.no}
         }
     ]
-
     return <RadioGroup className={props.className} name={props.name} id={props.id} li={data} />
 }
 
