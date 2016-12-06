@@ -121,14 +121,13 @@ export const YesnoRadioGroup = props => {
     let data = [
         {
             label: {children: 'Yes', htmlFor: 'yesno_yes' + index},
-            userInput: {name: 'yesno' + index, id: 'yesno_yes' + index, value: 'yes', ...props.yes}
+            userInput: {name: props.name, id: 'yesno_yes' + index, value: 'yes', ...props.yes}
         },
         {
             label: {children: 'No', htmlFor: 'yesno_no' + index},
-            userInput: {name: 'yesno' + index, id: 'yesno_no' + index, value: 'no', ...props.no}
+            userInput: {name: props.name, id: 'yesno_no' + index, value: 'no', ...props.no}
         }
     ]
-
     return <RadioGroup className={props.className} name={props.name} id={props.id} li={data} />
 }
 
