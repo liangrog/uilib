@@ -2,7 +2,6 @@ import React from 'react'
 
 import { Input } from '../elements/input'
 import { DataSelect } from '../elements/select'
-import uiHelper from '../../utils/ui-helper'
 
 
 class Telephone extends React.Component {
@@ -13,62 +12,94 @@ class Telephone extends React.Component {
         let index = props.index != undefined ?  props.index : ''
         this.countryCodeName = `c_code_${index}`
         this.phoneNumberName = `p_number_${index}`
-        this.state = {}
+
+        this.state = this.splitPhoneNumber(props.phoneNumber)
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.phone_number) {
+            this.setState(
+                this.splitPhoneNumber(nextProps.phone_number)
+            )
+        }
+    }
+
+    splitPhoneNumber = (phoneNumber) => {
+        if (phoneNumber) {
+            return {
+                [this.countryCodeName]: phoneNumber.substring(0, 3),
+                [this.phoneNumberName]: phoneNumber.substring(3)
+            }
+        } else {
+            return {
+                [this.countryCodeName]: '',
+                [this.phoneNumberName]: ''
+            }
+        }
     }
 
     updatePhoneNumber = (e) => {
-        // Update local tel params
-        this.state[e.target.name]= e.target.value
-        this.setState({})
+        if (e.target.name === this.countryCodeName && e.target.value === '') {
+            // Change country code to empty will clear the whole phone number
+            this.state = this.splitPhoneNumber()
+        } else {
+            // Update local tel params
+            this.state[e.target.name] = e.target.value
+        }
 
         // Fire onChange
         this.props.onChange(
             {
                 target: {
                     name: this.props.name,
-                    value: uiHelper.valOr(this.state[this.countryCodeName]) + uiHelper.valOr(this.state[this.phoneNumberName])
+                    value: this.state[this.countryCodeName] + this.state[this.phoneNumberName]
                 }
             }
         )
     }
 
-    render = () => {
-        let dialCodeEle = {
+    countryCodeEle = () => {
+        let countryCodeEle = {
             name: this.countryCodeName,
             required: this.props.required,
             autoFocus: this.props.autoFocus,
             whiteList: ['+61', '+86'],
             onChange: this.updatePhoneNumber
         }
+        // Controlled or not controlled
         if (this.props.phone_number !== undefined) {
-            dialCodeEle.value = this.props.phone_number ? this.props.phone_number.substring(0, 3) : ''
+            countryCodeEle.value = this.state[this.countryCodeName]
         }
+        return countryCodeEle
+    }
 
+    phoneNumberEle = () => {
+        let phoneNumberEle = {
+            className: "",
+            type: "tel",
+            name: this.phoneNumberName,
+            required: this.props.required,
+            onChange: this.updatePhoneNumber
+        }
+        // Controlled or not controlled
+        if (this.props.phone_number !== undefined) {
+            phoneNumberEle.value = this.state[this.phoneNumberName]
+        }
+        return phoneNumberEle
+    }
+
+    render = () => {
+        let countryCodeEle = this.countryCodeEle()
+        let phoneNumberEle = this.phoneNumberEle()
 
         return (
             <div id={this.props.id} className={`clearfix ${this.props.className}`}>
                 <div className="l_span_4">
-                    { DataSelect('countryDialCode')(dialCodeEle)}
+                    { DataSelect('countryDialCode')(countryCodeEle) }
                 </div>
 
                 <div className="l_span_8 l_last">
-                    {
-                        (this.props.phone_number === undefined) ?
-                            <Input className=""
-                                   type="tel"
-                                   name={this.phoneNumberName}
-                                   required={this.props.required}
-                                   onChange={this.updatePhoneNumber}
-                            />
-                        :
-                            <Input className=""
-                                   type="tel"
-                                   name={this.phoneNumberName}
-                                   value={this.props.phone_number ? this.props.phone_number.substring(3) : ''}
-                                   required={this.props.required}
-                                   onChange={this.updatePhoneNumber}
-                            />
-                    }
+                    <Input {...phoneNumberEle} />
                 </div>
             </div>
         )
