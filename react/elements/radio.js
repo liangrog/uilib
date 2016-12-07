@@ -117,7 +117,7 @@ GenderRadioGroup.defaultProps = {
  * yesno radio group
  */
 export const YesnoRadioGroup = props => {
-    let index = props.index ? '_' + props.index : ''
+    let index = (props.index !== undefined) ? '_' + props.index : ''
     let data = [
         {
             label: {children: 'Yes', htmlFor: 'yesno_yes' + index},
@@ -135,12 +135,12 @@ YesnoRadioGroup.propTypes = {
     id: React.PropTypes.string,
     className: React.PropTypes.string,
     name: React.PropTypes.string.isRequired,
-    male: React.PropTypes.shape({
+    yes: React.PropTypes.shape({
         checked: React.PropTypes.bool,
         onChange: React.PropTypes.func,
         className: React.PropTypes.string
     }),
-    female: React.PropTypes.shape({
+    no: React.PropTypes.shape({
         checked: React.PropTypes.bool,
         onChange: React.PropTypes.func,
         className: React.PropTypes.string
