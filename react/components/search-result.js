@@ -121,11 +121,19 @@ class SearchResult extends React.Component {
         return cols
     }
 
+    col = (obj, col) => {
+        if (col.content) {
+            return col.content(obj)
+        } else {
+            return obj[col.attr]
+        }
+    }
+
     row = (obj) => {
         let row = this.props.cols.map(
             (col, i) => (
                 <td key={i}>
-                    {obj[col.attr]}
+                    {this.col(obj, col)}
                 </td>
             )
         )
@@ -258,7 +266,8 @@ SearchResult.propTypes = {
     cols: React.PropTypes.arrayOf(React.PropTypes.shape({
         label: React.PropTypes.string.isRequired,
         attr: React.PropTypes.string.isRequired,
-        sorting:  React.PropTypes.bool
+        sorting: React.PropTypes.bool,
+        content: React.PropTypes.func
     })),
     defaultPrePage: React.PropTypes.number,
     defaultSorting: React.PropTypes.shape({
