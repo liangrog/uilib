@@ -28,7 +28,7 @@ class SearchResult extends React.Component {
 
         // Sorting
         if (this.state.sorting.attr && this.state.sorting.type) {
-            data = data.sortBy(d => d.get('name'))
+            data = data.sortBy(d => d.get(this.state.sorting.attr))
             if (this.state.sorting.type === 'desc') {
                 data = data.reverse()
             }
@@ -55,14 +55,16 @@ class SearchResult extends React.Component {
         })
     }
 
-    changeSorting = (attr, type, e) => {
-        e.preventDefault()
-        this.setState({
-            sorting: {
-                attr,
-                type
-            }
-        })
+    changeSorting = (attr, type) => {
+        return (e) => {
+            e.preventDefault()
+            this.setState({
+                sorting: {
+                    attr,
+                    type
+                }
+            })
+        }
     }
 
     toggleMainCheckbox = (e) => {
@@ -83,13 +85,13 @@ class SearchResult extends React.Component {
                             <span>
                                 <a href="#"
                                         className="sort_up"
-                                        onClick={this.changeSorting.bind(null, col.attr, 'asc')}
+                                        onClick={this.changeSorting(col.attr, 'asc')}
                                 >
                                     <span className={"i_up" + ((this.state.sorting.attr === col.attr && this.state.sorting.type === 'asc')? ' active' : '')}></span>
                                 </a>
                                 <a href="#"
                                         className="sort_down"
-                                        onClick={this.changeSorting.bind(null, col.attr, 'desc')}
+                                        onClick={this.changeSorting(col.attr, 'desc')}
                                 >
                                     <span className={"i_down" + ((this.state.sorting.attr === col.attr && this.state.sorting.type === 'desc')? ' active' : '')}></span>
                                 </a>
