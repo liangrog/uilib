@@ -28,7 +28,17 @@ class SearchResult extends React.Component {
 
         // Sorting
         if (this.state.sorting.attr && this.state.sorting.type) {
-            data = data.sortBy(d => d.get('name'))
+            data = data.sortBy(d => {
+                let attrValue = d.get(this.state.sorting.attr)
+                if (attrValue === undefined) {
+                    return ''
+                } else if (typeof attrValue === 'string') {
+                    // return lower case for sorting purpose.
+                    return attrValue.toLowerCase()
+                } else {
+                    return attrValue
+                }
+            })
             if (this.state.sorting.type === 'desc') {
                 data = data.reverse()
             }
@@ -55,14 +65,16 @@ class SearchResult extends React.Component {
         })
     }
 
-    changeSorting = (attr, type, e) => {
-        e.preventDefault()
-        this.setState({
-            sorting: {
-                attr,
-                type
-            }
-        })
+    changeSorting = (attr, type) => {
+        return (e) => {
+            e.preventDefault()
+            this.setState({
+                sorting: {
+                    attr,
+                    type
+                }
+            })
+        }
     }
 
     toggleMainCheckbox = (e) => {
@@ -83,13 +95,13 @@ class SearchResult extends React.Component {
                             <span>
                                 <a href="#"
                                         className="sort_up"
-                                        onClick={this.changeSorting.bind(null, col.attr, 'asc')}
+                                        onClick={this.changeSorting(col.attr, 'asc')}
                                 >
                                     <span className={"i_up" + ((this.state.sorting.attr === col.attr && this.state.sorting.type === 'asc')? ' active' : '')}></span>
                                 </a>
                                 <a href="#"
                                         className="sort_down"
-                                        onClick={this.changeSorting.bind(null, col.attr, 'desc')}
+                                        onClick={this.changeSorting(col.attr, 'desc')}
                                 >
                                     <span className={"i_down" + ((this.state.sorting.attr === col.attr && this.state.sorting.type === 'desc')? ' active' : '')}></span>
                                 </a>
@@ -121,11 +133,13 @@ class SearchResult extends React.Component {
         return cols
     }
 
+    col = (obj, col) => col.content ? col.content(obj) : obj[col.attr]
+
     row = (obj) => {
         let row = this.props.cols.map(
             (col, i) => (
                 <td key={i}>
-                    {obj[col.attr]}
+                    {this.col(obj, col)}
                 </td>
             )
         )
@@ -258,7 +272,8 @@ SearchResult.propTypes = {
     cols: React.PropTypes.arrayOf(React.PropTypes.shape({
         label: React.PropTypes.string.isRequired,
         attr: React.PropTypes.string.isRequired,
-        sorting:  React.PropTypes.bool
+        sorting: React.PropTypes.bool,
+        content: React.PropTypes.func
     })),
     defaultPrePage: React.PropTypes.number,
     defaultSorting: React.PropTypes.shape({
