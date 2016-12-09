@@ -28,7 +28,17 @@ class SearchResult extends React.Component {
 
         // Sorting
         if (this.state.sorting.attr && this.state.sorting.type) {
-            data = data.sortBy(d => d.get(this.state.sorting.attr))
+            data = data.sortBy(d => {
+                let attrValue = d.get(this.state.sorting.attr)
+                if (attrValue === undefined) {
+                    return ''
+                } else if (typeof attrValue === 'string') {
+                    // return lower case for sorting purpose.
+                    return attrValue.toLowerCase()
+                } else {
+                    return attrValue
+                }
+            })
             if (this.state.sorting.type === 'desc') {
                 data = data.reverse()
             }
@@ -123,13 +133,7 @@ class SearchResult extends React.Component {
         return cols
     }
 
-    col = (obj, col) => {
-        if (col.content) {
-            return col.content(obj)
-        } else {
-            return obj[col.attr]
-        }
-    }
+    col = (obj, col) => col.content ? col.content(obj) : obj[col.attr]
 
     row = (obj) => {
         let row = this.props.cols.map(
