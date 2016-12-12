@@ -14,25 +14,32 @@ class SearchResult extends React.Component {
             curPage: 1,
             sorting: props.defaultSorting,
             filters: {
-                attrs: props.cols.map(col => col.content ? col.content : col.attr)
+                attrs: props.cols
+                    .filter(col => col.filtering)
+                    .map(col => {
+                        return [col.attr, col.content ? col.content : col.attr]
+                    })
             }
         }
-        this.checkboxes = []
-        this.radios = []
+        this.init()
     }
 
     componentWillUpdate = () => {
+        this.init()
+    }
+
+    init() {
         this.checkboxes = []
         this.radios = []
     }
 
     filterData() {
         const { filters } = this.state
-        const hasFilterValue = (entry) => {
+        const hasFilterValue = entry => {
             let isSub = true
-            filters.attrs.map((attr) => {
-                const filterVal = filters[attr]
-                const entryVal = (typeof attr === 'function') ? attr(entry) : entry[attr]
+            filters.attrs.map(attr => {
+                const filterVal = filters[attr[0]]
+                const entryVal = (typeof attr[1] === 'function') ? attr[1](entry) : entry[attr[1]]
 
                 if (filterVal && filterVal !== '' && (String(entryVal).toLowerCase().indexOf(filterVal.toLowerCase()) === -1)) {
                     isSub = false
