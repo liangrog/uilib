@@ -112,8 +112,9 @@ class UserPool {
      * register user
      */
     register(formData, onFailure, onSuccess) {
-        //system generated username
-        formData['username'] = this.randomUsername(24)
+        // System generated username
+        // For easy look up, we use email for username
+        formData['username'] = formData.email.replace('@', '-at-').replace('.', '-')
 
         let invalid = this.validateRegistyForm(formData)
 
