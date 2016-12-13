@@ -12,19 +12,59 @@ class SearchResult extends React.Component {
         this.state = {
             perPage: props.defaultPrePage,
             curPage: 1,
-            sorting: props.defaultSorting
+            sorting: props.defaultSorting,
+            filters: {
+                attrs: props.cols.filter(col => col.filtering).map(col => [col.attr, col.filterMask])
+            }
         }
-        this.checkboxes = []
-        this.radios = []
+        this.init()
     }
 
     componentWillUpdate = () => {
+        this.init()
+    }
+
+    init() {
         this.checkboxes = []
         this.radios = []
     }
 
-    dataToDisplay = () => {
+    processData() {
+        const { cols } = this.props
         let data = Immutable.fromJS(this.props.data)
+
+        cols.map(col => {
+            if (col.filterMask) {
+                data = data.map(entry => entry.set(`${col.attr}FilterVal`, (entry.get(col.attr))))
+            }
+            if (col.content) {
+                data = data.map(entry => entry.set(col.attr, col.content(entry.toJSON())))
+            }
+        })
+
+        return data.toJSON()
+    }
+
+    filterData(data) {
+        const { filters } = this.state
+        const hasFilterValue = entry => {
+            let isSub = true
+            filters.attrs.map(attr => {
+                const filterVal = filters[attr[0]]
+                const entryVal = attr[1] ? entry[`${attr[0]}FilterVal`] : entry[attr[0]]
+
+                if (filterVal && filterVal !== '' && (String(entryVal).toLowerCase().indexOf(filterVal.toLowerCase()) === -1)) {
+                    isSub = false
+                }
+            })
+            return isSub
+        }
+
+        return filters ? data.filter(hasFilterValue) : data
+    }
+
+    dataToDisplay(filteredData = []) {
+        let data = Immutable.fromJS(filteredData)
 
         // Sorting
         if (this.state.sorting.attr && this.state.sorting.type) {
@@ -43,6 +83,7 @@ class SearchResult extends React.Component {
                 data = data.reverse()
             }
         }
+
 
         // Paging
         let from = (this.state.curPage - 1) * this.state.perPage
@@ -133,13 +174,11 @@ class SearchResult extends React.Component {
         return cols
     }
 
-    col = (obj, col) => col.content ? col.content(obj) : obj[col.attr]
-
     row = (obj) => {
         let row = this.props.cols.map(
             (col, i) => (
                 <td key={i}>
-                    {this.col(obj, col)}
+                    {obj[col.attr]}
                 </td>
             )
         )
@@ -177,10 +216,9 @@ class SearchResult extends React.Component {
         return row
     }
 
-    rows = (colNum) => {
-        let results = this.dataToDisplay()
-        if (results.length > 0) {
-            return results.map(
+    rows = (colNum, data) => {
+        if (data.length > 0) {
+            return data.map(
                 (obj, i) => (
                     <tr key={i}>
                         {this.row(obj)}
@@ -229,10 +267,53 @@ class SearchResult extends React.Component {
         )
     }
 
+    changeFilter(attr) {
+        return (e) => {
+            this.setState({
+                filters: {
+                    ...this.state.filters,
+                    [attr]: e.target.value
+                }
+            })
+        }
+    }
+
+    renderFilter() {
+        const { checkboxCol, radioCol, cols } = this.props
+        const hasFiltering = cols.some(col => col.filtering)
+        if (!hasFiltering) { return }
+        let renderedCols = cols.map(
+            (col, i) => (
+                <td key={`col-filter-${i}`}>
+                    {col.filtering ? <input type='text' placeholder={`Filter by ${col.label}`} onChange={this.changeFilter(col.attr)}/> : undefined}
+                </td>
+            )
+        )
+
+        if (checkboxCol) {
+            renderedCols.unshift(
+                <td key="col-filter-checkboxCol">
+
+                </td>
+            )
+        }
+
+        if (radioCol) {
+            renderedCols.unshift(
+                <td key="col-filter-radioCol">
+                </td>
+            )
+        }
+
+        return <tr>{renderedCols}</tr>
+    }
+
     render = () => {
-        let buttons = this.actionButtons()
-        let headers = this.headers()
-        let rows = this.rows(headers.length)
+        const buttons = this.actionButtons()
+        const headers = this.headers()
+        const data = this.filterData(this.processData())
+        const displayData = this.dataToDisplay(data)
+        const rows = this.rows(headers.length, displayData)
 
         return (
             <div>
@@ -250,17 +331,18 @@ class SearchResult extends React.Component {
                     </thead>
 
                     <tbody>
+                        {this.renderFilter()}
                         {rows}
                     </tbody>
                 </table>
 
                 <Pagination
-                        curPage={this.state.curPage}
-                        perPage={this.state.perPage}
-                        maxPage={Math.ceil(this.props.data.length / this.state.perPage)}
-                        onChangeCurPage={this.changeCurPage}
-                        onChangePerPage={this.changePerPage}
-                        onChangeSorting={this.changeSorting}
+                    curPage={this.state.curPage}
+                    perPage={this.state.perPage}
+                    maxPage={Math.ceil(data.length / this.state.perPage)}
+                    onChangeCurPage={this.changeCurPage}
+                    onChangePerPage={this.changePerPage}
+                    onChangeSorting={this.changeSorting}
                 />
             </div>
         )
@@ -273,7 +355,8 @@ SearchResult.propTypes = {
         label: React.PropTypes.string.isRequired,
         attr: React.PropTypes.string.isRequired,
         sorting: React.PropTypes.bool,
-        content: React.PropTypes.func
+        content: React.PropTypes.func,
+        filtering: React.PropTypes.bool
     })),
     defaultPrePage: React.PropTypes.number,
     defaultSorting: React.PropTypes.shape({
