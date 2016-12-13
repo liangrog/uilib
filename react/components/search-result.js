@@ -14,11 +14,7 @@ class SearchResult extends React.Component {
             curPage: 1,
             sorting: props.defaultSorting,
             filters: {
-                attrs: props.cols
-                    .filter(col => col.filtering)
-                    .map(col => {
-                        return [col.attr, col.content ? col.content : col.attr]
-                    })
+                attrs: props.cols.filter(col => col.filtering).map(col => col.attr)
             }
         }
         this.init()
@@ -33,13 +29,26 @@ class SearchResult extends React.Component {
         this.radios = []
     }
 
-    filterData() {
+    processData() {
+        const { data, cols } = this.props
+        cols.map(col => {
+            if (col.content) {
+                data.map(entry => {
+                    entry[col.attr] = col.content(entry)
+                })
+            }
+        })
+
+        return data
+    }
+
+    filterData(data) {
         const { filters } = this.state
         const hasFilterValue = entry => {
             let isSub = true
             filters.attrs.map(attr => {
-                const filterVal = filters[attr[0]]
-                const entryVal = (typeof attr[1] === 'function') ? attr[1](entry) : entry[attr[1]]
+                const filterVal = filters[attr]
+                const entryVal = entry[attr]
 
                 if (filterVal && filterVal !== '' && (String(entryVal).toLowerCase().indexOf(filterVal.toLowerCase()) === -1)) {
                     isSub = false
@@ -47,7 +56,7 @@ class SearchResult extends React.Component {
             })
             return isSub
         }
-        return filters ? this.props.data.filter(hasFilterValue) : this.props.data
+        return filters ? data.filter(hasFilterValue) : data
     }
 
     dataToDisplay(filteredData = []) {
@@ -161,13 +170,11 @@ class SearchResult extends React.Component {
         return cols
     }
 
-    col = (obj, col) => col.content ? col.content(obj) : obj[col.attr]
-
     row = (obj) => {
         let row = this.props.cols.map(
             (col, i) => (
                 <td key={i}>
-                    {this.col(obj, col)}
+                    {obj[col.attr]}
                 </td>
             )
         )
@@ -300,7 +307,7 @@ class SearchResult extends React.Component {
     render = () => {
         const buttons = this.actionButtons()
         const headers = this.headers()
-        const data = this.filterData()
+        const data = this.filterData(this.processData())
         const displayData = this.dataToDisplay(data)
         const rows = this.rows(headers.length, displayData)
 
