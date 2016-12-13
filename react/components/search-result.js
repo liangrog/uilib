@@ -14,7 +14,7 @@ class SearchResult extends React.Component {
             curPage: 1,
             sorting: props.defaultSorting,
             filters: {
-                attrs: props.cols.filter(col => col.filtering).map(col => col.attr)
+                attrs: props.cols.filter(col => col.filtering).map(col => [col.attr, col.filterMask])
             }
         }
         this.init()
@@ -30,16 +30,19 @@ class SearchResult extends React.Component {
     }
 
     processData() {
-        const { data, cols } = this.props
+        const { cols } = this.props
+        let data = Immutable.fromJS(this.props.data)
+
         cols.map(col => {
+            if (col.filterMask) {
+                data = data.map(entry => entry.set(`${col.attr}FilterVal`, (entry.get(col.attr))))
+            }
             if (col.content) {
-                data.map(entry => {
-                    entry[col.attr] = col.content(entry)
-                })
+                data = data.map(entry => entry.set(col.attr, col.content(entry.toJSON())))
             }
         })
 
-        return data
+        return data.toJSON()
     }
 
     filterData(data) {
@@ -47,8 +50,8 @@ class SearchResult extends React.Component {
         const hasFilterValue = entry => {
             let isSub = true
             filters.attrs.map(attr => {
-                const filterVal = filters[attr]
-                const entryVal = entry[attr]
+                const filterVal = filters[attr[0]]
+                const entryVal = attr[1] ? entry[`${attr[0]}FilterVal`] : entry[attr[0]]
 
                 if (filterVal && filterVal !== '' && (String(entryVal).toLowerCase().indexOf(filterVal.toLowerCase()) === -1)) {
                     isSub = false
@@ -56,6 +59,7 @@ class SearchResult extends React.Component {
             })
             return isSub
         }
+
         return filters ? data.filter(hasFilterValue) : data
     }
 
