@@ -62,7 +62,7 @@ export const fetchUri =
         }
 
         return fetch(uri, params)
-            .then(response => response.json())
+            .then(response => response.status == 204 ? null : response.json())
             .then(json => dispatch(receiveSubject(json, subject)))
             .catch(onFailure)
     }
