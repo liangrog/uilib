@@ -38,7 +38,7 @@ const formSectionAddDecor = (Component) => {
                 if (this.props.onDelete) {
                     this.props.onDelete(data, index)
                 } else {
-                    let dataList = Immutable.fromJS(this.props.dataList).delete(index)
+                    const dataList = Immutable.fromJS(this.props.dataList).delete(index)
                     this.props.onChange({
                         target: {
                             name: this.props.namePrefix,
@@ -52,12 +52,12 @@ const formSectionAddDecor = (Component) => {
         onReorder = (index, change) => {
             return (e) => {
                 e.preventDefault()
-                let newPos = index + change
+                const newPos = index + change
                 if (newPos >= 0 && newPos < this.props.dataList.length) {
                     let dataList = Immutable.fromJS(this.props.dataList)
                     let dataItem = dataList.get(index)
                     dataList = dataList.delete(index)
-                    dataList = dataList.insert(index + change, dataItem)
+                    dataList = dataList.insert(newPos, dataItem)
                     this.props.onChange({
                         target: {
                             name: this.props.namePrefix,
