@@ -1,21 +1,24 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
-import { fetchAgentProfile } from '../../../account/redux/actions'
+import { fetchAgentProfile } from 'account/redux/actions'
 
 class CurrentUser extends Component {
     constructor(props) {
         super(props)
+        props.fetchProfile()
         this.state = {
             profile_photo: 'http://www.asianplasticsurgeryguide.com/images/blog/asianman.jpg',
             menuOpen: false
         }
+        document.addEventListener('click', this.handleClick, false)
     }
 
-    componentWillMount() {
-        this.props.fetchProfile()
+    componentWillUnmount() {
+        document.removeEventListener('click', this.handleClick, false);
     }
 
-    toggleMenu = (e) => {
+    toggleMenu = e => {
         e.preventDefault()
         let menuOpen = !this.state.menuOpen
         this.setState({menuOpen})
@@ -36,6 +39,17 @@ class CurrentUser extends Component {
         }
     }
 
+    handleClick = e => {
+        if(!ReactDOM.findDOMNode(this).contains(e.target)) {
+            // clicking outside the component
+            this.setState({ menuOpen: false })
+        }
+
+        if (e.target.tagName === 'A') {
+            this.setState({ menuOpen: false })
+        }
+    }
+
     render = () => {
         return (
             <div className="user_account l_span_2 l_last">
@@ -51,17 +65,15 @@ class CurrentUser extends Component {
     }
 }
 
-const mapStateToProps = (store) => {
+const mapStateToProps = ({ agentProfile }) => {
     return {
-        profile: store.agentProfile
+        profile: agentProfile
     }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = dispatch => {
     return {
-        fetchProfile: () => {
-            dispatch(fetchAgentProfile())
-        }
+        fetchProfile: () => dispatch(fetchAgentProfile())
     }
 }
 
