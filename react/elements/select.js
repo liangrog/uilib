@@ -6,6 +6,7 @@ import AUSTRALIA_STATES from '../../data/australia-states'
 import { COUNTRIES, COUNTRY_DIAL_CODES } from '../../data/countries'
 import { VISA_TYPES, SPONSOR_PERIODS } from '../../data/visas'
 import ENTITY_TYPES from '../../data/entity-types'
+import { NOTIFICATION_CHANNEL } from '../../data/notification-channel'
 
 
 /**
@@ -146,7 +147,9 @@ export const DataSelect =
     }
 
     //add empty option
-    options.unshift(optionBuilder(''))
+    if (options[0] && options[0].value !== '') {
+        options.unshift(optionBuilder(''))
+    }
 
     let local = Immutable.fromJS(props).set('options', options).toJSON()
 
@@ -173,6 +176,9 @@ const getDataByType = type => {
             break
         case 'entityType':
             data = ENTITY_TYPES.map(optionBuilder)
+            break
+        case 'notificationChannel':
+            data = NOTIFICATION_CHANNEL
             break
     }
     return data
