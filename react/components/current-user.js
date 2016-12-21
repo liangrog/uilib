@@ -27,8 +27,8 @@ class CurrentUser extends Component {
     displayMenu = () => {
         if (this.props.children && this.state.menuOpen) {
             return (
-                <div className="user_account_dropdown">
-                    <div className="arrow-up"></div>
+                <div className="user-account-dropdown">
+                    <div className="arrow--up"></div>
                     <div className="inner">
                         {this.props.children}
                     </div>
@@ -52,11 +52,11 @@ class CurrentUser extends Component {
 
     render = () => {
         return (
-            <div className="user_account l_span_2 l_last">
-                <a className="user_account_name" href="#" onClick={this.toggleMenu}>
-                    <img className="user-photo" alt="" src={this.state.profile_photo} />
+            <div className="user-account l_span_2 l_last">
+                <a className="user-account__name" href="#" onClick={this.toggleMenu}>
+                    <img className="user-account__photo" alt="" src={this.state.profile_photo} />
                     <span className="user-name">{this.props.profile.given_name}</span>
-                    <span className="i_arrow"></span>
+                    <span className="i__arrow"></span>
                 </a>
 
                 {this.displayMenu()}
