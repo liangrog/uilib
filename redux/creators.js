@@ -1,7 +1,7 @@
 import 'whatwg-fetch'
 
 import logger from '../logger'
-
+import {toastr} from 'react-redux-toastr'
 
 /**
  * create standard sync actions
@@ -48,7 +48,10 @@ export const fetchUri =
         },
         requestSubject = null,
         receiveSubject,
-        onFailure = (error) => logger.log(error, 'error')
+        onFailure = (error) => {
+            logger.log(error, 'error')
+            toastr.error('Failure', 'Appplication has failed. Please try again later.')
+        }
     } = action
 
     if (requestSubject !== null && typeof receiveSubject != 'function') {
@@ -64,6 +67,6 @@ export const fetchUri =
         return fetch(uri, params)
             .then(response => response.status == 204 ? null : response.json())
             .then(json => dispatch(receiveSubject(json, subject)))
-            .catch(onFailure)
+            .catch(error => dispatch(onFailure(error)))
     }
 }
