@@ -4,9 +4,6 @@ import Collapse, { Panel } from 'rc-collapse'
 
 import uiHelper from '../../utils/ui-helper'
 
-require('assets/sass/accordion.scss')
-
-
 const formSectionAddDecor = (Component) => {
 
     return class NewComponent extends React.Component {
