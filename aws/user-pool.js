@@ -114,7 +114,7 @@ class UserPool {
     register(formData, onFailure, onSuccess) {
         // System generated username
         // For easy look up, we use email for username
-        formData['username'] = formData.email.replace('@', '-at-').replace('.', '-')
+        formData['username'] = formData.email.replace('@', '-at-').replace(/\./g, '-')
 
         let invalid = this.validateRegistyForm(formData)
 
