@@ -2,23 +2,15 @@ import React from 'react'
 
 import Form from './form'
 
-function findParentForm(element){
-    var parent = element.parentNode;
-    if (parent && parent.tagName !== 'FORM'){
-        parent = findParentForm(parent);
-    }
-    return parent;
-}
-
 class FormBottomNav extends Form {
 
     back = e => this.context.router.goBack()
 
     next = e => this.context.router.push(this.props.next)
 
-    validate = e => findParentForm(e.target).checkValidity()
+    validate = e => e.target.form.checkValidity()
 
-    render = () => {
+    render() {
         return (
             <div className="button_footer">
                 <hr className="hr1" />
