@@ -1,16 +1,22 @@
-import React, { Component, PropTypes } from 'react'
+import React from 'react'
 
 import Form from './form'
 
+function findParentForm(element){
+    var parent = element.parentNode;
+    if (parent && parent.tagName !== 'FORM'){
+        parent = findParentForm(parent);
+    }
+    return parent;
+}
 
 class FormBottomNav extends Form {
-    constructor(props) {
-        super(props)
-    }
 
-    back = (e) => this.context.router.goBack()
+    back = e => this.context.router.goBack()
 
-    next = (e) => this.context.router.push(this.props.next)
+    next = e => this.context.router.push(this.props.next)
+
+    validate = e => findParentForm(e.target).checkValidity()
 
     render = () => {
         return (
@@ -21,7 +27,7 @@ class FormBottomNav extends Form {
                 </div>
                 <div className="l_span_6 l_last">
                     { this.props.nextEnabled && <button className="btn btn-primary btn-right btn-icon btn-icon-arrow btn_next btn_right btn_has_arrow" onClick={this.next} type="button" name="next" id="next">Next</button> }
-                    { this.props.saveEnabled && <button className="btn btn_secondary btn_right" type="submit" name="save" id="save" onClick={this.props.save}>{this.props.submitButtonText}</button> }
+                    { this.props.saveEnabled && <button className="btn btn_secondary btn_right" type="submit" name="save" id="save" onClick={this.validate}>{this.props.submitButtonText}</button> }
                 </div>
             </div>
         )
@@ -33,7 +39,6 @@ FormBottomNav.propTypes = {
     nextEnabled: React.PropTypes.bool,
     next: React.PropTypes.string,
     saveEnabled: React.PropTypes.bool,
-    save: React.PropTypes.func
 }
 
 FormBottomNav.defaultProps = {
@@ -41,7 +46,6 @@ FormBottomNav.defaultProps = {
     nextEnabled: false,
     next: '/',
     saveEnabled: true,
-    save: () => true,
     submitButtonText: 'Save'
 }
 
