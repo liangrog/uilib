@@ -2,6 +2,7 @@ import React from 'react'
 
 import Form from './form'
 
+
 class FormBottomNav extends Form {
 
     back = e => this.context.router.goBack()
@@ -15,7 +16,7 @@ class FormBottomNav extends Form {
             <div className="button_footer">
                 <hr className="hr1" />
                 <div className="l_span_6">
-                    { this.props.backEnabled && <button className="btn btn-clear btn_icon btn-icon-back btn_icon_back" name="back" id="back" onClick={this.back}>Back</button> }
+                    { this.props.backEnabled && <button className="btn btn-clear btn_icon btn-icon-back btn_icon_back" name="back" id="back" onClick={this.back} type="button">Back</button> }
                 </div>
                 <div className="l_span_6 l_last">
                     { this.props.nextEnabled && <button className="btn btn-primary btn-right btn-icon btn-icon-arrow btn_next btn_right btn_has_arrow" onClick={this.next} type="button" name="next" id="next">Next</button> }
