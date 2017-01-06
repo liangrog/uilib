@@ -65,11 +65,13 @@ class SearchResult extends React.Component {
 
     dataToDisplay(filteredData = []) {
         let data = Immutable.fromJS(filteredData)
+        const hasFilterMask = this.state.sorting.filterMask
 
         // Sorting
         if (this.state.sorting.attr && this.state.sorting.type) {
             data = data.sortBy(d => {
-                let attrValue = d.get(this.state.sorting.attr)
+                const attrValue = hasFilterMask ? d.get(`${this.state.sorting.attr}FilterVal`) : d.get(this.state.sorting.attr)
+
                 if (attrValue === undefined) {
                     return ''
                 } else if (typeof attrValue === 'string') {
@@ -106,13 +108,14 @@ class SearchResult extends React.Component {
         })
     }
 
-    changeSorting = (attr, type) => {
+    changeSorting = (attr, type, filterMask) => {
         return (e) => {
             e.preventDefault()
             this.setState({
                 sorting: {
                     attr,
-                    type
+                    type,
+                    filterMask: filterMask ? true : false
                 }
             })
         }
@@ -136,13 +139,13 @@ class SearchResult extends React.Component {
                             <span>
                                 <a href="#"
                                         className="sort_up"
-                                        onClick={this.changeSorting(col.attr, 'asc')}
+                                        onClick={this.changeSorting(col.attr, 'asc', col.filterMask)}
                                 >
                                     <span className={"i_up" + ((this.state.sorting.attr === col.attr && this.state.sorting.type === 'asc')? ' active' : '')}></span>
                                 </a>
                                 <a href="#"
                                         className="sort_down"
-                                        onClick={this.changeSorting(col.attr, 'desc')}
+                                        onClick={this.changeSorting(col.attr, 'desc', col.filterMask)}
                                 >
                                     <span className={"i_down" + ((this.state.sorting.attr === col.attr && this.state.sorting.type === 'desc')? ' active' : '')}></span>
                                 </a>
