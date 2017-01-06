@@ -216,7 +216,17 @@ class SearchResult extends React.Component {
         return row
     }
 
-    rows = (colNum, data) => {
+    rows = (colNum, data, loading) => {
+        if (loading) {
+            return (
+                <tr>
+                    <td className="text-center" colSpan={colNum}>
+                        Loading &hellip;
+                    </td>
+                </tr>
+            )
+        }
+
         if (data.length > 0) {
             return data.map(
                 (obj, i) => (
@@ -225,15 +235,15 @@ class SearchResult extends React.Component {
                     </tr>
                 )
             )
-        } else {
-            return (
-                <tr>
-                    <td className="text-center" colSpan={colNum}>
-                        No results found.
-                    </td>
-                </tr>
-            )
         }
+
+        return (
+            <tr>
+                <td className="text-center" colSpan={colNum}>
+                    No results found.
+                </td>
+            </tr>
+        )
     }
 
     buttonAction = (actionButton) => {
@@ -313,7 +323,7 @@ class SearchResult extends React.Component {
         const headers = this.headers()
         const data = this.filterData(this.processData())
         const displayData = this.dataToDisplay(data)
-        const rows = this.rows(headers.length, displayData)
+        const rows = this.rows(headers.length, displayData, this.props.loading)
 
         return (
             <div>
@@ -358,6 +368,7 @@ SearchResult.propTypes = {
         content: React.PropTypes.func,
         filtering: React.PropTypes.bool
     })),
+    loading: React.PropTypes.bool,
     defaultPrePage: React.PropTypes.number,
     defaultSorting: React.PropTypes.shape({
         attr: React.PropTypes.string,
@@ -383,7 +394,8 @@ SearchResult.defaultProps = {
     cols: [],
     defaultPrePage: 10,
     defaultSorting: {},
-    actionButtons: []
+    actionButtons: [],
+    loading: false
 }
 
 export default SearchResult
