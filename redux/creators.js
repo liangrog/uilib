@@ -34,10 +34,7 @@ export function makeActionCreator(type, ...argNames) {
  *      receiveSubject: receiveBlah
  * })
  */
-export const fetchUri =
-    uri =>
-    action => {
-
+export const fetchUri = uri => action => {
     const {
         subject = null,
         params = {
@@ -55,8 +52,7 @@ export const fetchUri =
         throw new Error('Expected receiveSubject is a function')
     }
 
-    return (dispatch) => {
-
+    return dispatch => {
         if (requestSubject !== null) {
             dispatch(requestSubject(subject))
         }
@@ -66,4 +62,22 @@ export const fetchUri =
             .then(json => dispatch(receiveSubject(json, subject)))
             .catch(onFailure)
     }
+}
+
+
+/**
+ * switch-free redux reducer creation
+ *
+ * usage:
+ *
+ * export default createReducer(defaultState, {
+ *    [ACTION_TYPE_1]: require('/path/to/action/1').default,
+ *    [ACTION_TYPE_2]: require('/path/to/action/2').default
+ * })
+ */
+export const createReducer = (defaultState, reducers) => (state, action) => {
+    const newState = state || defaultState
+    const reducer = reducers[action.type]
+
+    return reducer ? reducer(newState, action) : newState
 }
