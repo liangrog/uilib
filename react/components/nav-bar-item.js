@@ -4,25 +4,22 @@ import { Link } from 'react-router'
 
 
 class NavBarItem extends Component {
-    constructor(props) {
-        super(props)
-    }
 
     render = () => {
         let content = [(
-            <Link to={this.props.url} activeClassName="active" onlyActiveOnIndex={true}>
+            <Link key='0' to={this.props.url} activeClassName="active" onlyActiveOnIndex={true}>
                 {this.props.text}
             </Link>
         )]
         if(this.props.submenu){
-            content.push(<NavBar items={this.props.submenu} subnav={true} />);
+            content.push(<NavBar key={`${content.length}`} items={this.props.submenu} subnav={true} />);
         }
         return (
             <li>
                 {content}
             </li>
         )
-    }    
+    }
 }
 
 NavBarItem.propTypes = {
