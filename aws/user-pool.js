@@ -1,6 +1,5 @@
 import AWS from 'aws-sdk/global'
 import CognitoIdentityServiceProvider from 'aws-sdk/clients/cognitoidentityserviceprovider'
-import {CognitoUserPool, CognitoUserAttribute, CognitoUser} from 'amazon-cognito-identity-js'
 
 import logger from '../logger'
 import ENV_VARS from '../env-vars'
@@ -152,7 +151,7 @@ class UserPool {
             }*/
 
             if (typeof onSuccess == 'function') {
-               return onSuccess()
+                return onSuccess()
             }
         }
 
@@ -342,7 +341,7 @@ class UserPool {
         for (let key in attrList) {
             attributeList.push(this.newCognitoAttr(key, attrList[key]))
         }
-        
+
         this.getCognitoUser().updateAttributes(attributeList, function(err, result) {
             if (err) {
                 logger.log(err)
@@ -404,7 +403,7 @@ class UserPool {
                     return
                 }
                 logger.log(result)
-        })
+            })
     }
 
     /**
@@ -456,7 +455,7 @@ class UserPool {
      * Signing out from the application
      */
     signout() {
-         this.getCognitoUser().signOut()
+        this.getCognitoUser().signOut()
     }
 
     /**
@@ -564,13 +563,13 @@ class UserPool {
      * @param string paginationToken
      */
     listDevices(limit=5, paginationToken=null) {
-            this.getCognitoUser().listDevices(limit, paginationToken, {
-                onSuccess: function (result) {
-                    logger.log(result)
-                },
-                onFailure: function(err) {
-                    logger.log(err)
-                }
+        this.getCognitoUser().listDevices(limit, paginationToken, {
+            onSuccess: function (result) {
+                logger.log(result)
+            },
+            onFailure: function(err) {
+                logger.log(err)
+            }
         })
     }
 
@@ -578,7 +577,7 @@ class UserPool {
      * List information about the current device
      */
     getDevice() {
-       this.getCognitoUser().getDevice({
+        this.getCognitoUser().getDevice({
             onSuccess: function(result) {
                 logger.log(result)
             },
@@ -628,6 +627,10 @@ class UserPool {
                 logger.log(err)
             }
         })
+    }
+
+    isUserLoggedIn() {
+        return !!this.userPool.getCurrentUser()
     }
 }
 
