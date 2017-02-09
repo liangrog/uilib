@@ -1,5 +1,6 @@
 import AWS from 'aws-sdk/global'
 import CognitoIdentityServiceProvider from 'aws-sdk/clients/cognitoidentityserviceprovider'
+import {CognitoUserPool, CognitoUserAttribute, CognitoUser} from 'amazon-cognito-identity-js' // eslint-disable-line
 
 import logger from '../logger'
 import ENV_VARS from '../env-vars'
