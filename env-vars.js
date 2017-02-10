@@ -16,6 +16,7 @@ switch (process.env.NODE_ENV) {
         let STG_ENV = require('../config/staging.js')
         ENV_VARS = Object.assign({}, ENV_VARS, STG_ENV.ENV)
         break
+    case 'test':
     case 'development':
         //override with development config
         let DEV_ENV = require('../config/development.js')
