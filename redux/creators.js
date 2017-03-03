@@ -7,15 +7,11 @@ import logger from '../logger'
  * create standard sync actions
  * @param string type actiontypes
  */
-export function makeActionCreator(type, ...argNames) {
-    return function(...args) {
-        let action = { type }
-        argNames.forEach((arg, index) => {
-            action[argNames[index]] = args[index]
-        })
-        return action
-    }
-}
+export const makeActionCreator = (type, args) => () => ({
+    type,
+    ...args
+})
+
 
 /**
  * using ES6 fetch
