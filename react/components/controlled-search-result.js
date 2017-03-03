@@ -1,34 +1,44 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import Immutable from 'immutable'
 
-const SearchResult = ({ cols, data, loading }) => {
+const propTypes = {
+    cols: PropTypes.array.isRequired,
+    data: PropTypes.array.isRequired,
+    loading: PropTypes.bool
+}
 
-    const renderOrderByButton = ({ orderAsc, orderDesc }) => (orderAsc || orderDesc) ?
-        <span>
+const SearchResult = ({ cols, data, loading }) => {
+    const orderByButtonPropTypes = {
+        orderAsc: PropTypes.func,
+        orderDesc: PropTypes.func
+    }
+    const renderOrderByButton = ({ orderAsc, orderDesc }) => (orderAsc || orderDesc)
+        ? <span>
             {
-                orderAsc ?
-                    <a href="#"
-                        className="sort_up"
+                orderAsc
+                    ? <a href='#'
+                        className='sort_up'
                         onClick={orderAsc.onChangeOrder} >
-                        <span className={`i_up ${orderAsc.active ? 'active' : ''}`}></span>
+                        <span className={`i_up ${orderAsc.active ? 'active' : ''}`} />
                     </a> : undefined
             }
             {
-                orderDesc ?
-                    <a href="#"
-                        className="sort_down"
+                orderDesc
+                    ? <a href='#'
+                        className='sort_down'
                         onClick={orderDesc.onChangeOrder} >
-                        <span className={`i_down ${orderDesc.active ? 'active' : ''}`}></span>
+                        <span className={`i_down ${orderDesc.active ? 'active' : ''}`} />
                     </a> : undefined
             }
         </span>
         : undefined
+    renderOrderByButton.propTypes = orderByButtonPropTypes
 
     const headers = () =>
         cols.map(
             (col, i) => (
                 <th key={i}>
-                    {col.label}
+                    {col.label()}
                     {renderOrderByButton(col)}
                 </th>
             )
@@ -43,11 +53,14 @@ const SearchResult = ({ cols, data, loading }) => {
             )
         )
 
+    const rowsPropTypes = {
+        colNum: PropTypes.number.isRequired
+    }
     const rows = ({ colNum, data, loading }) => {
         if (loading) {
             return (
                 <tr>
-                    <td className="text-center" colSpan={colNum}>
+                    <td className='text-center' colSpan={colNum}>
                         Loading &hellip;
                     </td>
                 </tr>
@@ -66,12 +79,13 @@ const SearchResult = ({ cols, data, loading }) => {
 
         return (
             <tr>
-                <td className="text-center" colSpan={colNum}>
+                <td className='text-center' colSpan={colNum}>
                     No results found.
                 </td>
             </tr>
         )
     }
+    rows.propTypes = rowsPropTypes
 
     const processData = ({ cols, data = [] }) => {
         let returnData = Immutable.fromJS(data)
@@ -86,7 +100,7 @@ const SearchResult = ({ cols, data, loading }) => {
     const headersVal = headers()
 
     return (
-        <table className="stacktable">
+        <table className='stacktable'>
             <thead>
                 <tr>{headersVal}</tr>
             </thead>
@@ -97,5 +111,7 @@ const SearchResult = ({ cols, data, loading }) => {
         </table>
     )
 }
+
+SearchResult.propTypes = propTypes
 
 export default SearchResult
