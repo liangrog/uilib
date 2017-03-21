@@ -1,31 +1,39 @@
-import React, { Component, PropTypes } from 'react'
+import { Component, PropTypes } from 'react'
 import Immutable from 'immutable'
 
 import uiHelper from '../../utils/ui-helper'
 
+const propTypes = {
+    formData: PropTypes.object
+}
 
 class Form extends Component {
-    constructor(props) {
+    constructor (props) {
         super(props)
         this.formKeys = []
     }
 
-    updateFormData = (formKeys, props) => {
-        //only run this function if formKey defined
-        if (this.formKeys.length) {
+    updateFormDataPreMount = (formKeys, props) => {
+        if (this.formKeys.length && props) {
             this.formKeys.forEach((key) => {
-                if (props) {
-                    this.setState({[key]: uiHelper.valOr(props[key])})
-                }
+                this.state = {...this.state, [key]: uiHelper.valOr(props[key])}
             })
         }
     }
 
-    componentWillMount() {
+    updateFormData = (formKeys, props) => {
+        if (this.formKeys.length && props) {
+            this.formKeys.forEach((key) => {
+                this.setState({[key]: uiHelper.valOr(props[key])})
+            })
+        }
+    }
+
+    componentWillMount () {
         this.updateFormData(this.formKeys, this.props.formData)
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentWillReceiveProps (nextProps) {
         this.updateFormData(this.formKeys, nextProps.formData)
     }
 
@@ -41,14 +49,6 @@ class Form extends Component {
     getStateVal = (name) => this.state[name]
 }
 
-Form.contextTypes= {
-    router: PropTypes.object
-}
+Form.propTypes = propTypes
 
-/**
- * three ways to redirect:
- * 1. import browserHistory then browserHistory.push but if using different history will require code change
- * 2. use withRouter then access via this.props.router
- * 3. use context as above
- */
-export default Form;
+export default Form
