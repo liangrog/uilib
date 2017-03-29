@@ -38,7 +38,7 @@
  	}
 */
 export function flatten(origin) {
-	return rFlatten("", origin, {});
+	return rFlatten('', origin, {});
 }
 
 
