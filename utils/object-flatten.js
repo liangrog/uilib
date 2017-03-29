@@ -41,13 +41,10 @@ export function flatten(origin) {
 	return rFlatten('', origin, {});
 }
 
-
 function rFlatten(prefix, origin, target) {
 
 	Object.keys(origin).forEach(key => {
-
 		const propName = prefix ? `${prefix}_${key}` : key;
-
 		if(typeof(origin[key]) === 'object') {
 			rFlatten(propName, origin[key], target);
 		} else {
@@ -56,9 +53,4 @@ function rFlatten(prefix, origin, target) {
 	});
 
 	return target;
-
 }
-
-
-
-
