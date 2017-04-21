@@ -218,6 +218,13 @@ class UserPool {
             Username: username,
             Password: password
         }
+        const refreshCallback = (err) => {
+            if (err) {
+                logger.log(err)
+            } else {
+                logger.log('Cognito credential has been successfully refreshed !')
+            }
+        }
 
         let authenticationDetails = new CognitoIdentityServiceProvider.AuthenticationDetails(authenticationData)
         var onSuccess = (result) => {
