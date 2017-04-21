@@ -4,14 +4,14 @@ import Form from './form'
 import userpool from '../../aws/user-pool'
 
 
-//FaCC
+// FaCC
 class CognitoVerifyForm extends Form {
 
-    constructor(props) {
+    constructor (props) {
         super(props)
         this.state = {
             code: '',
-            message:''
+            message: ''
         }
     }
 
@@ -25,12 +25,12 @@ class CognitoVerifyForm extends Form {
         let onFailure = (err) => {
             this.setState({message: err.message})
         }
-        var onSuccess = () => this.context.router.push(this.props.successPath != undefined ? this.props.successPath : '/account/login')
-        console.log(this.state);
+        var onSuccess = () => this.context.router.push(this.props.successPath !== undefined ? this.props.successPath : '/account/login')
+        console.log(this.state)
         userpool.registerConfirmByCode(null, this.state.code, onFailure, onSuccess)
     }
 
-    cancelVerify = (e) => this.context.router.push(this.props.cancelPath != undefined ? this.props.cancelPath : '/account/login')
+    cancelVerify = (e) => this.context.router.push(this.props.cancelPath !== undefined ? this.props.cancelPath : '/account/login')
 
     resend = (e) => {
         let onFailure = (err) => {
@@ -39,7 +39,7 @@ class CognitoVerifyForm extends Form {
         userpool.resendConfirmCode(null, onFailure)
     }
 
-    render() {
+    render () {
         return (
             this.props.children(this)
         )
@@ -49,7 +49,11 @@ class CognitoVerifyForm extends Form {
 CognitoVerifyForm.propTypes = {
     successPath: PropTypes.string,
     cancelPath: PropTypes.string,
-    children: PropTypes.func.isRequired
+    children: PropTypes.object.isRequired
+}
+
+CognitoVerifyForm.contextTypes = {
+    router: React.PropTypes.object.isRequired
 }
 
 export default CognitoVerifyForm

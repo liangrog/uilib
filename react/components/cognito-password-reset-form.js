@@ -4,14 +4,14 @@ import Form from './form'
 import userpool from '../../aws/user-pool'
 
 
-//FaCC
+// FaCC
 class CognitoPasswordResetForm extends Form {
 
-    constructor(props) {
+    constructor (props) {
         super(props)
         this.state = {
             id: '',
-            message:'',
+            message: '',
             code: '',
             password: '',
             isActive: false
@@ -24,7 +24,7 @@ class CognitoPasswordResetForm extends Form {
      */
     sendCode = (e) => {
         e.preventDefault()
-        //close code input
+        // close code input
         this.onToggle
 
         let onFailure = (err) => {
@@ -32,7 +32,7 @@ class CognitoPasswordResetForm extends Form {
         }
 
         let onSuccess = () => this.onToggle()
-        
+
         userpool.forgotPassword(this.state.id, onFailure, onSuccess)
     }
 
@@ -52,7 +52,7 @@ class CognitoPasswordResetForm extends Form {
         this.context.router.push('/account/login')
     }
 
-    render() {
+    render () {
         return (
             <div>
                 { this.state.message ? <div className='alert alert-info'>{this.state.message}</div> : '' }
@@ -64,7 +64,11 @@ class CognitoPasswordResetForm extends Form {
 
 CognitoPasswordResetForm.propTypes = {
     success_path: PropTypes.string,
-    children: PropTypes.func.isRequired
+    children: PropTypes.any.isRequired
+}
+
+CognitoPasswordResetForm.contextTypes = {
+    router: React.PropTypes.object.isRequired
 }
 
 export default CognitoPasswordResetForm

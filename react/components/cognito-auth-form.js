@@ -1,13 +1,14 @@
+/* eslint-disable camelcase */
 import React, { PropTypes } from 'react'
 
 import Form from './form'
 import userpool from '../../aws/user-pool'
 
 
-//FaCC
+// FaCC
 class CognitoAuthForm extends Form {
 
-    constructor(props) {
+    constructor (props) {
         super(props)
         this.state = {
             userId: '',
@@ -24,7 +25,7 @@ class CognitoAuthForm extends Form {
         e.preventDefault()
 
         let onFailure = (err) => {
-            //reset password
+            // reset password
             this.setState({password: ''})
 
             return this.setState({message: err.message})
@@ -36,7 +37,7 @@ class CognitoAuthForm extends Form {
         userpool.authenticate(this.state.userId, this.state.password, onFailure, onSuccess)
     }
 
-    render() {
+    render () {
         return (
             <div>
                 { this.state.message ? <div className='alert alert-info'>{this.state.message}</div> : '' }
@@ -48,7 +49,11 @@ class CognitoAuthForm extends Form {
 
 CognitoAuthForm.propTypes = {
     success_path: PropTypes.string,
-    children: PropTypes.func.isRequired
+    children: PropTypes.any.isRequired
+}
+
+CognitoAuthForm.contextTypes = {
+    router: React.PropTypes.object.isRequired
 }
 
 export default CognitoAuthForm
