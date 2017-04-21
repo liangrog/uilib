@@ -4,12 +4,12 @@ import Form from './form'
 import userpool from '../../aws/user-pool'
 
 
-//FaCC
+// FaCC
 class CognitoRegisterForm extends Form {
 
-    constructor(props) {
+    constructor (props) {
         super(props)
-        //mandatory state => element
+        // mandatory state => element
         this.state = {
             message: '',
             family_name: '',
@@ -32,12 +32,12 @@ class CognitoRegisterForm extends Form {
             }
         }
 
-        let onSuccess = () => this.context.router.push(this.props.successPath != undefined ? this.props.successPath : '/')
-        
+        let onSuccess = () => this.context.router.push(this.props.successPath !== undefined ? this.props.successPath : '/')
+
         userpool.register(this.state, onFailure, onSuccess)
     }
 
-    render() {
+    render () {
         return (
             <div>
                 { this.state.message ? <div className='alert alert-info'>{this.state.message}</div> : '' }
@@ -49,7 +49,11 @@ class CognitoRegisterForm extends Form {
 
 CognitoRegisterForm.propTypes = {
     successPath: PropTypes.string,
-    children: PropTypes.func.isRequired
+    children: PropTypes.any.isRequired
+}
+
+CognitoRegisterForm.contextTypes = {
+    router: React.PropTypes.object.isRequired
 }
 
 export default CognitoRegisterForm
